@@ -1,7 +1,7 @@
 # Perfect-DateTimePicker
 ---
 
-> A jQuery plugin for Date and Time Picker(基于jQuery的日期时间选择器)
+## A jQuery plugin for Date and Time Picker(基于jQuery的日期时间选择器)
 
 **Demo:** ![lalal](http://www.shaowenwu.cn)
 
