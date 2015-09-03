@@ -22,6 +22,8 @@
 
 ###API(接口)
 
+* 属性配置
+
 <table>
 <tr><td><b>属性</b></td><td><b>类型</b></td><td><b>描述</b></td></tr>
 <tr><td>baseCls</td><td>String</td><td>主样式</td></tr>
@@ -34,4 +36,16 @@
 <tr><td>onOk</td><td>Function</td><td>确认按钮事件</td></tr>
 <tr><td>onClose</td><td>Function</td><td>关闭按钮事件</td></tr>
 <tr><td>onToday</td><td>Function</td><td>选取今天按钮事件</td></tr>
+</table>
+
+* 调用接口
+
+<table>
+<tr><td><b>方法</b></td><td><b>类型</b></td><td><b>参数</b></td><td><b>描述</b></td></tr>
+<tr><td>getValue</td><td>Function</td><td>无</td><td>获取当前日期对象</td></tr>
+<tr><td>getText</td><td>Function</td><td>format(可选，日期格式，例如: 'yyyy-MM-dd HH:mm:ss')</td><td>获取当前日期的文本格式</td></tr>
+<tr><td>element</td><td>Object</td><td>无</td><td>返回选择器的jQuery对象</td></tr>
+<tr><td>$datetable</td><td>Object</td><td>无</td><td>返回日期选择面板的jQuery对象</td></tr>
+<tr><td>$monthtable</td><td>Object</td><td>无</td><td>返回年月选择面板的jQuery对象</td></tr>
+<tr><td>$timetable</td><td>Object</td><td>无</td><td>返回时间选择面板的jQuery对象</td></tr>
 </table>
