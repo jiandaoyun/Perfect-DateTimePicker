@@ -5,21 +5,6 @@
 
 **Demo:** ![lalal](http://www.shaowenwu.cn)
 
-###Example(代码示例)
-
-```javascript
-    var picker = $('#demo1').datetimepicker({
-        date: new Date(),
-        viewMode: 'YMDHMS',
-        onDateUpdate: function(){
-            $('#date-text').text(this.getText());
-        },
-        onClose: function(){
-            this.element.remove();
-        }
-    });
-```
-
 ###API(接口)
 
 * 属性配置
@@ -49,3 +34,21 @@
 <tr><td>$monthtable</td><td>Object</td><td>无</td><td>返回年月选择面板的jQuery对象</td></tr>
 <tr><td>$timetable</td><td>Object</td><td>无</td><td>返回时间选择面板的jQuery对象</td></tr>
 </table>
+
+###Example(代码示例)
+
+```javascript
+    var picker = $('#demo1').datetimepicker({
+        date: new Date(),
+        viewMode: 'YMDHMS',
+        onDateUpdate: function(){
+            $('#date-text').text(this.getText());
+        },
+        onClose: function(){
+            this.element.remove();
+        }
+    });
+    console.log(picker.getText());
+    console.log(picker.getValue());
+    picker.element.hide();
+```
