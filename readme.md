@@ -23,10 +23,7 @@
 ###API(接口)
 
 <table>
-<th>
-<tr><td>属性</td><td>类型</td><td>描述</td></tr>
-</th>
-<tbody>
+<tr><td><b>属性</b></td><td><b>类型</b></td><td><b>描述</b></td></tr>
 <tr><td>baseCls</td><td>String</td><td>主样式</td></tr>
 <tr><td>viewMode</td><td>String</td><td>'YM'|'YMD'|'YMDHMS'|'HMS'</td></tr>
 <tr><td>startDate</td><td>Date</td><td>起始日期</td></tr>
@@ -37,5 +34,4 @@
 <tr><td>onOk</td><td>Function</td><td>确认按钮事件</td></tr>
 <tr><td>onClose</td><td>Function</td><td>关闭按钮事件</td></tr>
 <tr><td>onToday</td><td>Function</td><td>选取今天按钮事件</td></tr>
-</tbody>
 </table>
