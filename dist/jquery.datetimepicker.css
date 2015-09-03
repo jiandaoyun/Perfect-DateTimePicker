@@ -16,6 +16,7 @@
   border: none;
 }
 .perfect-datetimepicker table {
+  border-collapse: separate;
   background-color: white;
   padding: 3px;
   -webkit-border-radius: 4px;
