@@ -5,6 +5,11 @@
 
 **Demo:** ![lalal](http://www.shaowenwu.cn)
 
+###Preview(‘§¿¿Õº)
+![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/1.png)
+![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/2.png)
+![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/3.png)
+
 ###API(Ω”ø⁄)
 
 *  Ù–‘≈‰÷√
