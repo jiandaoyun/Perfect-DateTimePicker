@@ -1,46 +1,51 @@
 # Perfect-DateTimePicker
 ---
 
-## A jQuery plugin for Date and Time Picker(»ùÓÚjQueryµÄÈÕÆÚÊ±¼äÑ¡ÔñÆ÷)
+## A jQuery plugin for Date and Time Picker(åŸºäºjQueryçš„æ—¥æœŸæ—¶é—´é€‰æ‹©å™¨)
 
 **Demo:** [http://finexs.github.io/Perfect-DateTimePicker](http://finexs.github.io/Perfect-DateTimePicker)
 
-###Preview(Ô¤ÀÀÍ¼)
+###Features(ç‰¹æ€§)
+0. Simple Interaction.(äº¤äº’ç®€å•)
+0. Concise Interface.(ç•Œé¢æ•´æ´)
+0. Bootstrap Style.(ç±»Bootstrapé£æ ¼)
+
+###Preview(é¢„è§ˆå›¾)
 ![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/1.png)
 ![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/2.png)
 ![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/3.png)
 
-###API(½Ó¿Ú)
+###API(æ¥å£)
 
-* ÊôĞÔÅäÖÃ
+* å±æ€§é…ç½®
 
 <table>
-<tr><td><b>ÊôĞÔ</b></td><td><b>ÀàĞÍ</b></td><td><b>ÃèÊö</b></td></tr>
-<tr><td>baseCls</td><td>String</td><td>Ö÷ÑùÊ½</td></tr>
+<tr><td><b>å±æ€§</b></td><td><b>ç±»å‹</b></td><td><b>æè¿°</b></td></tr>
+<tr><td>baseCls</td><td>String</td><td>ä¸»æ ·å¼</td></tr>
 <tr><td>viewMode</td><td>String</td><td>'YM'|'YMD'|'YMDHMS'|'HMS'</td></tr>
-<tr><td>startDate</td><td>Date</td><td>ÆğÊ¼ÈÕÆÚ</td></tr>
-<tr><td>endDate</td><td>Date</td><td>½áÊøÈÕÆÚ</td></tr>
-<tr><td>date</td><td>Date</td><td>µ±Ç°Öµ</td></tr>
-<tr><td>onDateUpdate</td><td>Function</td><td>ÈÕÆÚ¸üĞÂÊÂ¼ş</td></tr>
-<tr><td>onClear</td><td>Function</td><td>Çå³ı°´Å¥ÊÂ¼ş</td></tr>
-<tr><td>onOk</td><td>Function</td><td>È·ÈÏ°´Å¥ÊÂ¼ş</td></tr>
-<tr><td>onClose</td><td>Function</td><td>¹Ø±Õ°´Å¥ÊÂ¼ş</td></tr>
-<tr><td>onToday</td><td>Function</td><td>Ñ¡È¡½ñÌì°´Å¥ÊÂ¼ş</td></tr>
+<tr><td>startDate</td><td>Date</td><td>èµ·å§‹æ—¥æœŸ</td></tr>
+<tr><td>endDate</td><td>Date</td><td>ç»“æŸæ—¥æœŸ</td></tr>
+<tr><td>date</td><td>Date</td><td>å½“å‰å€¼</td></tr>
+<tr><td>onDateUpdate</td><td>Function</td><td>æ—¥æœŸæ›´æ–°äº‹ä»¶</td></tr>
+<tr><td>onClear</td><td>Function</td><td>æ¸…é™¤æŒ‰é’®äº‹ä»¶</td></tr>
+<tr><td>onOk</td><td>Function</td><td>ç¡®è®¤æŒ‰é’®äº‹ä»¶</td></tr>
+<tr><td>onClose</td><td>Function</td><td>å…³é—­æŒ‰é’®äº‹ä»¶</td></tr>
+<tr><td>onToday</td><td>Function</td><td>é€‰å–ä»Šå¤©æŒ‰é’®äº‹ä»¶</td></tr>
 </table>
 
-* µ÷ÓÃ½Ó¿Ú
+* è°ƒç”¨æ¥å£
 
 <table>
-<tr><td><b>·½·¨</b></td><td><b>ÀàĞÍ</b></td><td><b>²ÎÊı</b></td><td><b>ÃèÊö</b></td></tr>
-<tr><td>getValue</td><td>Function</td><td>ÎŞ</td><td>»ñÈ¡µ±Ç°ÈÕÆÚ¶ÔÏó</td></tr>
-<tr><td>getText</td><td>Function</td><td>format(¿ÉÑ¡£¬ÈÕÆÚ¸ñÊ½£¬ÀıÈç: 'yyyy-MM-dd HH:mm:ss')</td><td>»ñÈ¡µ±Ç°ÈÕÆÚµÄÎÄ±¾¸ñÊ½</td></tr>
-<tr><td>element</td><td>Object</td><td>ÎŞ</td><td>·µ»ØÑ¡ÔñÆ÷µÄjQuery¶ÔÏó</td></tr>
-<tr><td>$datetable</td><td>Object</td><td>ÎŞ</td><td>·µ»ØÈÕÆÚÑ¡ÔñÃæ°åµÄjQuery¶ÔÏó</td></tr>
-<tr><td>$monthtable</td><td>Object</td><td>ÎŞ</td><td>·µ»ØÄêÔÂÑ¡ÔñÃæ°åµÄjQuery¶ÔÏó</td></tr>
-<tr><td>$timetable</td><td>Object</td><td>ÎŞ</td><td>·µ»ØÊ±¼äÑ¡ÔñÃæ°åµÄjQuery¶ÔÏó</td></tr>
+<tr><td><b>æ–¹æ³•</b></td><td><b>ç±»å‹</b></td><td><b>å‚æ•°</b></td><td><b>æè¿°</b></td></tr>
+<tr><td>getValue</td><td>Function</td><td>æ— </td><td>è·å–å½“å‰æ—¥æœŸå¯¹è±¡</td></tr>
+<tr><td>getText</td><td>Function</td><td>format(å¯é€‰ï¼Œæ—¥æœŸæ ¼å¼ï¼Œä¾‹å¦‚: 'yyyy-MM-dd HH:mm:ss')</td><td>è·å–å½“å‰æ—¥æœŸçš„æ–‡æœ¬æ ¼å¼</td></tr>
+<tr><td>element</td><td>Object</td><td>æ— </td><td>è¿”å›é€‰æ‹©å™¨çš„jQueryå¯¹è±¡</td></tr>
+<tr><td>$datetable</td><td>Object</td><td>æ— </td><td>è¿”å›æ—¥æœŸé€‰æ‹©é¢æ¿çš„jQueryå¯¹è±¡</td></tr>
+<tr><td>$monthtable</td><td>Object</td><td>æ— </td><td>è¿”å›å¹´æœˆé€‰æ‹©é¢æ¿çš„jQueryå¯¹è±¡</td></tr>
+<tr><td>$timetable</td><td>Object</td><td>æ— </td><td>è¿”å›æ—¶é—´é€‰æ‹©é¢æ¿çš„jQueryå¯¹è±¡</td></tr>
 </table>
 
-###Example(´úÂëÊ¾Àı)
+###Example(ä»£ç ç¤ºä¾‹)
 
 ```javascript
     var picker = $('#demo1').datetimepicker({
@@ -58,9 +63,9 @@
     picker.element.hide();
 ```
 
-###Compatible(ä¯ÀÀÆ÷¼æÈİĞÔ)
+###Compatible(æµè§ˆå™¨å…¼å®¹æ€§)
 IE8+
 
-###License(Ğ­Òé)
+###License(åè®®)
 [MIT license](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/LICENSE)
 
