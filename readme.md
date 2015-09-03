@@ -3,7 +3,7 @@
 
 ## A jQuery plugin for Date and Time Picker(基于jQuery的日期时间选择器)
 
-**Demo:** ![lalal](http://www.shaowenwu.cn)
+**Demo:** [http://finexs.github.io/Perfect-DateTimePicker](http://finexs.github.io/Perfect-DateTimePicker)
 
 ###Preview(预览图)
 ![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/1.png)
