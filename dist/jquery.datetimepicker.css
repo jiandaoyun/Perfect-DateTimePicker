@@ -24,6 +24,7 @@
   border: 1px solid #cccccc;
 }
 .perfect-datetimepicker table td {
+  border: 0;
   text-align: center;
   padding: 2px;
   width: 34px;
