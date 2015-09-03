@@ -830,7 +830,9 @@
                                 //年月界面的确认按钮
                                 _loadDateData($datetable, new Date(options.date));
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
-                                $monthtable.hide("fast");
+                                if($datetable.parent().length > 0){
+                                    $monthtable.hide("fast");
+                                }
                                 break;
                             case NAV['cancel']:
                                 //年月界面的取消按钮

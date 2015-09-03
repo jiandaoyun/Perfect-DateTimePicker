@@ -61,41 +61,21 @@
             });
             $('#demo2').datetimepicker({
                 date: new Date(),
-                viewMode: 'YMD',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
-                }
+                viewMode: 'YMD'
             });
             $('#demo3').datetimepicker({
                 date: new Date(),
-                viewMode: 'YM',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
-                }
+                viewMode: 'YM'
             });
             $('#demo4').datetimepicker({
                 date: new Date(),
-                viewMode: 'HMS',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
-                }
+                viewMode: 'HMS'
             });
             $('#demo5').datetimepicker({
                 date: new Date(),
                 startDate: new Date(2015, 1, 1,0 ,0 ,0),
                 endDate: new Date(2015, 10 ,1 ,23 ,59 ,59),
-                viewMode: 'YMDHMS',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
-                }
+                viewMode: 'YMDHMS'
             });
         });
     </script>
