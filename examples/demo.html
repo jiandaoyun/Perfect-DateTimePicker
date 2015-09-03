@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="../dist/jquery.datetimepicker.css"/>
+    <style type="text/css">
+        #wrapper{
+            width: 780px;
+            margin: auto;
+        }
+    </style>
+    <title></title>
+</head>
+<body>
+    <div id="wrapper">
+        <h2>Demo1</h2>
+        <hr>
+        <h4>年月日+时间格式</h4>
+        <div>
+            <span>getText(): </span>
+            <span id="date-text"></span>
+        </div>
+        <div>
+            <span>getText('yyyy-MM-dd'): </span>
+            <span id="date-text-ymd"></span>
+        </div>
+        <div>
+            <span>getValue(): </span>
+            <span id="date-value"></span>
+        </div>
+        <div id="demo1"></div>
+        <h2>Demo2</h2>
+        <hr>
+        <h4>年月日格式</h4>
+        <div id="demo2"></div>
+        <h2>Demo3</h2>
+        <hr>
+        <h4>年月格式</h4>
+        <div id="demo3"></div>
+        <h2>Demo4</h2>
+        <hr>
+        <h4>时间格式</h4>
+        <div id="demo4"></div>
+        <h2>Demo5</h2>
+        <hr>
+        <h4>起始日期~结束日期</h4>
+        <div id="demo5"></div>
+    </div>
+    <script type="text/javascript" src="../lib/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../dist/jquery.datetimepicker.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#demo1').datetimepicker({
+                date: new Date(),
+                viewMode: 'YMDHMS',
+                onDateUpdate: function(){
+                    $('#date-text').text(this.getText());
+                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value').text(this.getValue());
+                }
+            });
+            $('#demo2').datetimepicker({
+                date: new Date(),
+                viewMode: 'YMD',
+                onDateUpdate: function(){
+                    $('#date-text').text(this.getText());
+                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value').text(this.getValue());
+                }
+            });
+            $('#demo3').datetimepicker({
+                date: new Date(),
+                viewMode: 'YM',
+                onDateUpdate: function(){
+                    $('#date-text').text(this.getText());
+                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value').text(this.getValue());
+                }
+            });
+            $('#demo4').datetimepicker({
+                date: new Date(),
+                viewMode: 'HMS',
+                onDateUpdate: function(){
+                    $('#date-text').text(this.getText());
+                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value').text(this.getValue());
+                }
+            });
+            $('#demo5').datetimepicker({
+                date: new Date(),
+                startDate: new Date(2015, 1, 1,0 ,0 ,0),
+                endDate: new Date(2015, 10 ,1 ,23 ,59 ,59),
+                viewMode: 'YMDHMS',
+                onDateUpdate: function(){
+                    $('#date-text').text(this.getText());
+                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value').text(this.getValue());
+                }
+            });
+        });
+    </script>
+</body>
+</html>
