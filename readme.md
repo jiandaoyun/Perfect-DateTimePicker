@@ -53,7 +53,9 @@
     picker.element.hide();
 ```
 
-###浏览器兼容
+###Compatible(浏览器兼容性)
 IE8+
 
-###协议
+###License(协议)
+[MIT license](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/LICENSE)
+
