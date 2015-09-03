@@ -239,7 +239,7 @@
                 for (i = 0; i < 7; ++i) {
                     var $fdcell = row.children().eq(i);
                     $fdcell.addClass('day name').text(I18N.SDN[i]);
-                    if ([0, 6].indexOf(i) != -1) { //周六,周日
+                    if (i === 0 || i ===6) { //周六,周日
                         $fdcell.addClass("weekend");
                     }
                 }
@@ -518,7 +518,7 @@
                                 $cell.addClass('today');
                             }
                             var wday = date.getDay();
-                            if ([0, 6].indexOf(wday) != -1) {
+                            if (i === 0 || i ===6) {
                                 $cell.addClass("weekend");
                             }
                         }
