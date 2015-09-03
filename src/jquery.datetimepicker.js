@@ -19,7 +19,7 @@
         var picker = {},
             CONSTS = $.fn.datetimepicker.CONSTS,
             NAV = CONSTS.NAV,
-            I18N = CONSTS.I18N,
+            I18N = CONSTS.I18N[options.language === 'en'?'en':'zh'],
             cache = {
                 showYear: null,
                 showMonth: null
@@ -962,15 +962,28 @@
      */
     $.fn.datetimepicker.CONSTS = {
         I18N: {
-            SDN: ["日", "一", "二", "三", "四", "五", "六"],
-            MN: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
-            DN: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
-            CALENDAR: "日历",
-            CLEAR: "清空",
-            TODAY: "今天",
-            OK: "确定",
-            CURRENT: "当前",
-            TIME: "时间"
+            zh: {
+                SDN: ["日", "一", "二", "三", "四", "五", "六"],
+                MN: ["一月", "二月", "三月", "四月", "五月", "六月", "七月", "八月", "九月", "十月", "十一月", "十二月"],
+                DN: ["星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"],
+                CALENDAR: "日历",
+                CLEAR: "清空",
+                TODAY: "今天",
+                OK: "确定",
+                CURRENT: "当前",
+                TIME: "时间"
+            },
+            en: {
+                SDN: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                MN: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                DN: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                CALENDAR: "Calendar",
+                CLEAR: "Clear",
+                TODAY: "Today",
+                OK: "OK",
+                CURRENT: "Now",
+                TIME: "Time"
+            }
         },
 
         VIEWMODE: {
@@ -1012,6 +1025,7 @@
         viewMode: $.fn.datetimepicker.CONSTS.VIEWMODE.YMD,
         endDate: null, //结束日期
         startDate: null, //起始日期
+        language: 'zh',
         date: null, //初始日期
         //日期更新事件
         onDateUpdate: null,

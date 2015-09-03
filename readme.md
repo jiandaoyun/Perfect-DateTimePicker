@@ -14,18 +14,23 @@
 ![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/1.png)
 ![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/2.png)
 ![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/3.png)
+![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/4.png)
+![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/5.png)
+![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/6.png)
+![](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/examples/7.png)
 
 ###API(接口)
 
-* 属性配置
+* options(属性配置)
 
 <table>
-<tr><td><b>属性</b></td><td><b>类型</b></td><td><b>描述</b></td></tr>
-<tr><td>baseCls</td><td>String</td><td>主样式</td></tr>
+<tr><td><b>property(属性)</b></td><td><b>type(类型)</b></td><td><b>description(描述)</b></td></tr>
+<tr><td>baseCls</td><td>String</td><td>base class(主样式)</td></tr>
+<tr><td>language</td><td>String</td><td>'zh'|'en'</td></tr>
 <tr><td>viewMode</td><td>String</td><td>'YM'|'YMD'|'YMDHMS'|'HMS'</td></tr>
-<tr><td>startDate</td><td>Date</td><td>起始日期</td></tr>
-<tr><td>endDate</td><td>Date</td><td>结束日期</td></tr>
-<tr><td>date</td><td>Date</td><td>当前值</td></tr>
+<tr><td>startDate</td><td>Date</td><td>start date(起始日期)</td></tr>
+<tr><td>endDate</td><td>Date</td><td>end date(结束日期)</td></tr>
+<tr><td>date</td><td>Date</td><td>initial date(初始值)</td></tr>
 <tr><td>onDateUpdate</td><td>Function</td><td>日期更新事件</td></tr>
 <tr><td>onClear</td><td>Function</td><td>清除按钮事件</td></tr>
 <tr><td>onOk</td><td>Function</td><td>确认按钮事件</td></tr>
@@ -33,10 +38,10 @@
 <tr><td>onToday</td><td>Function</td><td>选取今天按钮事件</td></tr>
 </table>
 
-* 调用接口
+* APIs(调用接口)
 
 <table>
-<tr><td><b>方法</b></td><td><b>类型</b></td><td><b>参数</b></td><td><b>描述</b></td></tr>
+<tr><td><b>function(方法)</b></td><td><b>type(类型)</b></td><td><b>parameters(参数)</b></td><td><b>description(描述)</b></td></tr>
 <tr><td>getValue</td><td>Function</td><td>无</td><td>获取当前日期对象</td></tr>
 <tr><td>getText</td><td>Function</td><td>format(可选，日期格式，例如: 'yyyy-MM-dd HH:mm:ss')</td><td>获取当前日期的文本格式</td></tr>
 <tr><td>element</td><td>Object</td><td>无</td><td>返回选择器的jQuery对象</td></tr>
