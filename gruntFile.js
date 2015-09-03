@@ -3,9 +3,15 @@ module.exports = function (grunt) {
 
     var jsDumpTasks = {
         files: [{
-            // web
+            // src
             expand: true,
             cwd: 'src',
+            src: '*.js',
+            dest: 'dist'
+        }, {
+            // lib
+            expand: true,
+            cwd: 'lib',
             src: '*.js',
             dest: 'dist'
         }]
