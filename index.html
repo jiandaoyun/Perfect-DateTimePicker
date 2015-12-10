@@ -1,133 +1,147 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-    <link rel="stylesheet" type="text/css" href="https://rawgit.com/FineXs/Perfect-DateTimePicker/master/dist/jquery.datetimepicker.css"/>
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+  <link rel="stylesheet" type="text/css" href="https://rawgit.com/FineXs/Perfect-DateTimePicker/master/dist/jquery.datetimepicker.css"/>
+  <!--[if lt IE 9]>
+  <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
 
-    <script type="text/javascript" src="https://rawgit.com/FineXs/Perfect-DateTimePicker/master/dist/jquery-1.11.1.js"></script>
-    <script type="text/javascript" src="https://rawgit.com/FineXs/Perfect-DateTimePicker/master/dist/jquery.datetimepicker.js"></script>
-    <script type="text/javascript">
-      $(document).ready(function(){
-        $('#demo1').datetimepicker({
-          date: new Date(),
-          viewMode: 'YMDHMS',
-          onDateUpdate: function(){
-            $('#date-text').text(this.getText());
-            $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-            $('#date-value').text(this.getValue());
-          }
-        });
-        $('#demo2').datetimepicker({
-          date: new Date(),
-          viewMode: 'YMD',
-          onDateUpdate: function(){
-            $('#date-text').text(this.getText());
-            $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-            $('#date-value').text(this.getValue());
-          }
-        });
-        $('#demo3').datetimepicker({
-          date: new Date(),
-          viewMode: 'YM',
-          onDateUpdate: function(){
-            $('#date-text').text(this.getText());
-            $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-            $('#date-value').text(this.getValue());
-          }
-        });
-        $('#demo4').datetimepicker({
-          date: new Date(),
-          viewMode: 'HMS',
-          onDateUpdate: function(){
-            $('#date-text').text(this.getText());
-            $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-            $('#date-value').text(this.getValue());
-          }
-        });
-        $('#demo5').datetimepicker({
-          date: new Date(),
-          startDate: new Date(2015, 1, 1,0 ,0 ,0),
-          endDate: new Date(2015, 10 ,1 ,23 ,59 ,59),
-          viewMode: 'YMDHMS',
-          onDateUpdate: function(){
-            $('#date-text').text(this.getText());
-            $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-            $('#date-value').text(this.getValue());
-          }
-        });
+  <script type="text/javascript" src="https://rawgit.com/FineXs/Perfect-DateTimePicker/master/dist/jquery-1.11.1.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/FineXs/Perfect-DateTimePicker/master/dist/jquery.datetimepicker.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function(){
+      $('#demo1').datetimepicker({
+        date: new Date(),
+        viewMode: 'YMDHMS',
+        onDateUpdate: function(){
+          $('#date-text').text(this.getText());
+          $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+          $('#date-value').text(this.getValue());
+        }
       });
-    </script>
-    <title>Perfect-datetimepicker by FineXs</title>
-  </head>
+      $('#demo2').datetimepicker({
+        date: new Date(),
+        viewMode: 'YMD',
+        onDateUpdate: function(){
+          $('#date-text').text(this.getText());
+          $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+          $('#date-value').text(this.getValue());
+        }
+      });
+      $('#demo3').datetimepicker({
+        date: new Date(),
+        viewMode: 'YM',
+        onDateUpdate: function(){
+          $('#date-text').text(this.getText());
+          $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+          $('#date-value').text(this.getValue());
+        }
+      });
+      $('#demo4').datetimepicker({
+        date: new Date(),
+        viewMode: 'HMS',
+        onDateUpdate: function(){
+          $('#date-text').text(this.getText());
+          $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+          $('#date-value').text(this.getValue());
+        }
+      });
+      $('#demo5').datetimepicker({
+        date: new Date(),
+        startDate: new Date(2015, 1, 1,0 ,0 ,0),
+        endDate: new Date(2015, 10 ,1 ,23 ,59 ,59),
+        viewMode: 'YMDHMS',
+        onDateUpdate: function(){
+          $('#date-text').text(this.getText());
+          $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+          $('#date-value').text(this.getValue());
+        }
+      });
+      $('#demo6').datetimepicker({
+        date: new Date(),
+        firstDayOfWeek: 1,
+        viewMode: 'YMDHMS',
+        onDateUpdate: function(){
+          $('#date-text').text(this.getText());
+          $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
+          $('#date-value').text(this.getValue());
+        }
+      });
+    });
+  </script>
+  <title>Perfect-datetimepicker by FineXs</title>
+</head>
 
-  <body>
-    <header>
-      <div class="inner">
-        <h1>Perfect-datetimepicker</h1>
-        <h2>A jQuery plugin for Date and Time Picker</h2>
-        <a href="https://github.com/FineXs/Perfect-DateTimePicker" class="button"><small>View project on</small> GitHub</a>
+<body>
+<header>
+  <div class="inner">
+    <h1>Perfect-datetimepicker</h1>
+    <h2>A jQuery plugin for Date and Time Picker</h2>
+    <a href="https://github.com/FineXs/Perfect-DateTimePicker" class="button"><small>View project on</small> GitHub</a>
+  </div>
+</header>
+
+<div id="content-wrapper">
+  <div class="inner clearfix">
+    <section id="main-content">
+      <h2>Demo1</h2>
+      <hr>
+      <h3>年月日+时间格式</h3>
+      <div>
+        <span>getText(): </span>
+        <span id="date-text"></span>
       </div>
-    </header>
-
-    <div id="content-wrapper">
-      <div class="inner clearfix">
-        <section id="main-content">
-          <h2>Demo1</h2>
-          <hr>
-          <h3>年月日+时间格式</h3>
-          <div>
-            <span>getText(): </span>
-            <span id="date-text"></span>
-          </div>
-          <div>
-            <span>getText('yyyy-MM-dd'): </span>
-            <span id="date-text-ymd"></span>
-          </div>
-          <div>
-            <span>getValue(): </span>
-            <span id="date-value"></span>
-          </div>
-          <div id="demo1"></div>
-          <h2>Demo2</h2>
-          <hr>
-          <h3>年月日格式</h3>
-          <div id="demo2"></div>
-          <h2>Demo3</h2>
-          <hr>
-          <h3>年月格式</h3>
-          <div id="demo3"></div>
-          <h2>Demo4</h2>
-          <hr>
-          <h3>时间格式</h3>
-          <div id="demo4"></div>
-          <h2>Demo5</h2>
-          <hr>
-          <h3>起始日期~结束日期</h3>
-          <div id="demo5"></div>
-        </section>
-
-        <aside id="sidebar">
-          <a href="https://github.com/FineXs/Perfect-DateTimePicker/zipball/master" class="button">
-            <small>Download</small>
-            .zip file
-          </a>
-          <a href="https://github.com/FineXs/Perfect-DateTimePicker/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/FineXs/Perfect-DateTimePicker">Perfect-DateTimePicker</a> is maintained by <a href="https://github.com/FineXs">FineXs</a>.</p>
-        </aside>
+      <div>
+        <span>getText('yyyy-MM-dd'): </span>
+        <span id="date-text-ymd"></span>
       </div>
-    </div>
-  
-  </body>
+      <div>
+        <span>getValue(): </span>
+        <span id="date-value"></span>
+      </div>
+      <div id="demo1"></div>
+      <h2>Demo2</h2>
+      <hr>
+      <h3>年月日格式(yyyyMMdd)</h3>
+      <div id="demo2"></div>
+      <h2>Demo3</h2>
+      <hr>
+      <h3>年月格式(yyyyMM)</h3>
+      <div id="demo3"></div>
+      <h2>Demo4</h2>
+      <hr>
+      <h3>时间格式(HHmmss)</h3>
+      <div id="demo4"></div>
+      <h2>Demo5</h2>
+      <hr>
+      <h3>起始日期~结束日期(date range)</h3>
+      <div id="demo5"></div>
+      <h2>Demo6</h2>
+      <hr>
+      <h3>设置每周的第一天(the first day Of week: 1(Monday))</h3>
+      <div id="demo6"></div>
+    </section>
+
+    <aside id="sidebar">
+      <a href="https://github.com/FineXs/Perfect-DateTimePicker/zipball/master" class="button">
+        <small>Download</small>
+        .zip file
+      </a>
+      <a href="https://github.com/FineXs/Perfect-DateTimePicker/tarball/master" class="button">
+        <small>Download</small>
+        .tar.gz file
+      </a>
+
+      <p class="repo-owner"><a href="https://github.com/FineXs/Perfect-DateTimePicker">Perfect-DateTimePicker</a> is maintained by <a href="https://github.com/FineXs">FineXs</a>.</p>
+    </aside>
+  </div>
+</div>
+
+</body>
 </html>
