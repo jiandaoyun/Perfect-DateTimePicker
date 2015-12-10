@@ -10,7 +10,7 @@
 }(function ($) {
 
     /**
-     * 初始化函数
+     * constructor
      * @param element
      * @param options
      * @returns {{}}
@@ -24,16 +24,17 @@
                 showYear: null,
                 showMonth: null
             },
+            firstDayOfWeek = options.firstDayOfWeek,
             $el = $(element),
-            $datetable, //日期面板
-            $monthtable, //年月面板
-            $timetable, //时间面板
+            $datetable, //D(date) panel
+            $monthtable, //YM(year and month) panel
+            $timetable, //T(time) panel
 
             utils = {
                 /**
-                 * 获取该月总天数
-                 * @param date {Date} 日期
-                 * @param month {Number} 有参数表示指定月份，无参数表示当前月份
+                 * calculate thu number of days in one month
+                 * @param date {Date} date
+                 * @param month {Number} month
                  * @private
                  */
                 getMonthDays: function(date, month){
@@ -196,13 +197,13 @@
             },
             
             /**
-             * 生成按钮对象
-             * @param tr {$} 行
-             * @param text {String} 文本内容
-             * @param colspan {Number} 合并单元格
-             * @param nav {Number} 操作数
-             * @param cls {String} 类名
-             * @returns {*} 返回TD对象
+             * create button cell
+             * @param tr {$} tr
+             * @param text {String} text
+             * @param colspan {Number} colspan
+             * @param nav {Number} nav key
+             * @param cls {String} class
+             * @returns {*} return td dom
              * @private
              */
             _createCell = function (tr, text, colspan, nav, cls) {
@@ -218,29 +219,33 @@
                 return $cell;
             },
 
+            /**
+             * create D panel
+             * @param options
+             * @returns {*|jQuery|HTMLElement}
+             * @private
+             */
             _createDatePicker = function(){
                 var table = $('<table cellspacing = "2px" cellpadding = "0" class="dt"/>');
                 var thead = $('<thead/>').appendTo(table);
                 //head
                 //head - tools
                 row = $('<tr class = "mainhead"/>');
-                //head - tools - 前一月
+                //head - tools - next month
                 table.$prevm = _createCell(row, '<i class="icon-datepicker-prev"/>', 1, NAV['prevm'], "prevm");
-                //head - tools - title(标记年份和月份)
+                //head - tools - title
                 table.$title = $('<td class="title" colspan="5"/>').data('nav',NAV['title']).appendTo(row);
-                //head - tools - 后一月
+                //head - tools - prev month
                 table.$nextm = _createCell(row, '<i class="icon-datepicker-next"/>', 1, NAV['nextm'], "nextm");
                 row.appendTo(thead);
                 //head - week names
                 row = $('<tr/>');
                 var i;
-                for (i = 7; i > 0; --i) {
-                    $('<td/>').appendTo(row);
-                }
                 for (i = 0; i < 7; ++i) {
-                    var $fdcell = row.children().eq(i);
-                    $fdcell.addClass('day name').text(I18N.SDN[i]);
-                    if (i === 0 || i ===6) { //周六,周日
+                    var $fdcell = $('<td/>').appendTo(row);
+                    var dd = ( i + firstDayOfWeek ) % 7;
+                    $fdcell.addClass('day name').text(I18N.SDN[dd]);
+                    if (dd === 0 || dd === 6) { //Saturday, Sunday
                         $fdcell.addClass("weekend");
                     }
                 }
@@ -255,21 +260,21 @@
                 }
                 //foot
                 var tfoot = $('<tfoot/>').appendTo(table);
-                //分割线
+                //separator
                 _createCell($('<tr/>').appendTo(tfoot), '', 7, null, 'split');
                 var row = $('<tr/>');
-                //foot - 清除按钮
+                //foot - clear button
                 _createCell(row, I18N["CLEAR"], 2, NAV['clear'], 'clear');
-                //foot - 今天按钮
+                //foot - today button
                 _createCell(row, I18N["TODAY"], 3, NAV['today'], 'today');
-                //foot - 确认按钮
+                //foot - ok button
                 _createCell(row, I18N["OK"], 2, NAV['dok'], 'ok');
                 row.appendTo(tfoot);
                 return table;
             },
 
             /**
-             * 生成年月选择部分
+             * create YM panel
              * @private
              */
             _createMonthPicker = function () {
@@ -299,7 +304,7 @@
             },
 
             /**
-             * 翻到上个月
+             * go to prev month
              * @private
              */
             _toPrevMonth = function () {
@@ -333,7 +338,7 @@
             },
 
             /**
-             * 翻到下个月
+             * go to next month
              * @private
              */
             _toNextMonth = function () {
@@ -367,7 +372,7 @@
             },
 
             /**
-             * 翻到前十年
+             * go to prev 10 years
              * @private
              */
             _toPrevDecade = function () {
@@ -391,7 +396,7 @@
             },
 
             /**
-             * 翻到后十年
+             * go to next 10 years
              * @private
              */
             _toNextDecade = function () {
@@ -433,9 +438,9 @@
             },
 
             /**
-             * 加载日期数据
-             * @param table {$} 容器
-             * @param date ｛Date｝当前日期
+             * load data on D panel
+             * @param table {$} DOM
+             * @param date ｛Date｝current date
              * @private
              */
             _loadDateData = function (table, date) {
@@ -453,9 +458,9 @@
                 cache.showMonth = month;
                 var std = options.startDate,
                     edd = options.endDate;
-                //设置title
+                //set title
                 table.$title.text(I18N.MN[month] + ", " + year);
-                //根据起始和结束日期设置翻月按钮
+                //set button
                 var nextDay = new Date(date);
                 nextDay.setDate(utils.getMonthDays(nextDay, null) + 1);
                 if ((edd && nextDay > edd) || nextDay.getFullYear() > CONSTS.MAXYEAR) {
@@ -470,13 +475,13 @@
                 } else {
                     table.$prevm.removeClass('disabled').data('disabled', false);
                 }
-                //日期设置
+                //set date
                 date.setDate(1);
-                var day1 = date.getDay() % 7;
+                var day1 = (date.getDay() - firstDayOfWeek) % 7;
                 date.setDate(0 - day1);
                 date.setDate(date.getDate() + 1);
                 var $frow = table.find('tbody').children().eq(0);
-                //根据起始和结束日期设置td日期
+                //set td date
                 for (var i = 0; i < 6; i++) {
                     if (!$frow.length) {
                         break;
@@ -498,11 +503,11 @@
                         }
                         var disabled = false;
                         if ((std != null && std > date) || (edd != null && edd < date)) {
-                            //日期范围外
+                            //out of date range
                             $cell.addClass('day disabled');
                             disabled = true;
                         } else {
-                            //日期范围内
+                            //in date range
                             $cell.addClass('day');
                         }
                         $cell.data('disabled', disabled);
@@ -519,7 +524,7 @@
                                 $cell.addClass('today');
                             }
                             var wday = date.getDay();
-                            if (i === 0 || i ===6) {
+                            if (wday === 0 || wday ===6) {
                                 $cell.addClass("weekend");
                             }
                         }
@@ -529,9 +534,9 @@
             },
 
             /**
-             * 加载年月数据
-             * @param table {$} 表格对象
-             * @param date {Date} 当前日期
+             * load data on YM panel
+             * @param table {$} DOM
+             * @param date {Date} current date
              * @private
              */
             _loadMonthData = function (table, date) {
@@ -539,7 +544,6 @@
                     return;
                 }
                 var year = date.getFullYear(), month = date.getMonth();
-                //处理需要显示的10个年份
                 var midyear = $(table).data('midYear');
                 if (!midyear) {
                     midyear = year;
@@ -558,7 +562,7 @@
                 var ed = options.endDate;
                 var sd = options.startDate;
                 var maxYear, maxMonth, minYear, minMonth;
-                //结束日期
+                //end date
                 if (ed) {
                     if (ed && year == (maxYear = ed.getFullYear())) {
                         maxMonth = ed.getMonth();
@@ -567,7 +571,7 @@
                 if (!maxYear || maxYear > CONSTS.MAXYEAR) {
                     maxYear = CONSTS.MAXYEAR;
                 }
-                //起始日期
+                //start date
                 if (sd) {
                     if (sd && year == (minYear = sd.getFullYear())) {
                         minMonth = sd.getMonth();
@@ -576,7 +580,7 @@
                 if (!minYear || minYear < CONSTS.MINYEAR) {
                     minYear = CONSTS.MINYEAR;
                 }
-                //12个月份数据加载
+                //load 12 months
                 for (var i = 0; i < 12; i++) {
                     var $mcell = mcells.eq(i).text(I18N.MN[i])
                         .data('nav', NAV['month']).data('month', i);
@@ -605,12 +609,12 @@
                         }
                     }
                 }
-                //翻页按钮 - 向前
+                //do page up
                 var $prev = $("td.prevy", table).removeClass('disabled').data('disabled', false);
                 if (years[0] <= minYear) {
                     $prev.addClass("disabled").data('disabled', true).removeClass('hover');
                 }
-                //翻页按钮 - 向后
+                //do page down
                 var $next = $("td.nexty", table).removeClass('disabled').data('disabled', false);
                 if (years[9] >= maxYear) {
                     $next.addClass("disabled").data('disabled', true).removeClass('hover');
@@ -630,9 +634,9 @@
             },
 
             /**
-             * 时间增加单位1
-             * @param {Object} timetable 时间表
-             * @param {Object} input 时间输入框对象
+             * do time increase
+             * @param {Object} timetable T panel DOM
+             * @param {Object} input time input
              * @private
              */
             _doTimeInc = function(timetable, input){
@@ -654,9 +658,9 @@
                 utils.applyFunc(picker, options.onDateUpdate, arguments, false);
             },
             /**
-             * 时间减少单位1
-             * @param {Object} timetable 时间表
-             * @param {Object} input 时间输入框对象
+             * do time decrease
+             * @param {Object} timetable T panel DOM
+             * @param {Object} input time input
              * @private
              */
             _doTimeDec = function(timetable, input){
@@ -727,8 +731,8 @@
             },
 
             /**
-             * 添加时分秒部分独立显示时的按钮操作面板
-             * @param timetable 时间面板
+             * add T(time) panel
+             * @param timetable T panel DOM
              * @private
              */
             _addTimeOptPane = function(timetable){
@@ -743,7 +747,7 @@
                 $foot.appendTo(timetable);
             },
             /**
-             * 所有绑定事件
+             * bind events
              * @private
              */
             _bindEvts = function () {
@@ -759,25 +763,23 @@
                         options.date = new Date();
                     }
                     if (type === 'mouseover') {
-                        //MOUSEOVER事件
                         $target.addClass('hover');
                     } else if (type === "mouseup") {
-                        //MOUSEUP事件
                         switch (navitype) {
                             case NAV['prevm']:
-                                //前月
+                                //previous month
                                 _toPrevMonth();
                                 _loadDateData($datetable, new Date(options.date));
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                                 break;
                             case NAV['nextm']:
-                                //后月
+                                //next month
                                 _toNextMonth();
                                 _loadDateData($datetable, new Date(options.date));
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                                 break;
                             case NAV['title']:
-                                //加载数据
+                                //click 'title' button to open YM panel
                                 _loadMonthData($monthtable, new Date(cache.showYear, cache.showMonth));
                                 $monthtable.css({
                                     position: 'absolute',
@@ -793,11 +795,11 @@
                                 utils.applyFunc(picker, options.onClear, arguments);
                                 break;
                             case NAV['current']:
-                                //当前按钮
+                                //click 'current' button
                                 options.date = new Date();
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                             case NAV['today']:
-                                //今天按钮
+                                //click 'today' button
                                 var today = new Date();
                                 if((options.startDate && today<options.startDate) ||
                                     (options.endDate && today>options.endDate)){
@@ -811,24 +813,24 @@
                                 utils.applyFunc(picker, options.onToday, arguments);
                                 break;
                             case NAV['dok']:
-                                //日期界面的确认按钮
+                                //click 'ok' button on D panel
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                                 utils.applyFunc(picker, options.onOk, arguments);
                                 break;
                             case NAV['prevy']:
-                                //前十年
+                                //previous ten years
                                 _toPrevDecade();
                                 _loadMonthData($monthtable, new Date(options.date));
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                                 break;
                             case NAV['nexty']:
-                                //后十年
+                                //next ten years
                                 _toNextDecade();
                                 _loadMonthData($monthtable, new Date(options.date));
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                                 break;
                             case NAV['mok']:
-                                //年月界面的确认按钮
+                                //click 'ok' button on YM panel
                                 _loadDateData($datetable, new Date(options.date));
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                                 if($datetable.parent().length > 0){
@@ -836,12 +838,12 @@
                                 }
                                 break;
                             case NAV['cancel']:
-                                //年月界面的取消按钮
+                                //click 'cancel' button
                                 _loadDateData($datetable, new Date(options.date));
                                 $monthtable.hide("fast");
                                 break;
                             case NAV['year']:
-                                //选中年
+                                //choose one year
                                 cache.selectedYear && cache.selectedYear.removeClass('selected');
                                 cache.selectedYear = $target;
                                 var date = options.date;
@@ -850,14 +852,14 @@
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                                 break;
                             case NAV['month']:
-                                //选中月
+                                //choose one month
                                 cache.selectedMonth && cache.selectedMonth.removeClass('selected');
                                 cache.selectedMonth = $target.addClass('selected');
                                 options.date.setMonth($target.data('month'));
                                 utils.applyFunc(picker, options.onDateUpdate, arguments);
                                 break;
                             case NAV['day']:
-                                //选中日
+                                //choose one day
                                 cache.selectedDate && cache.selectedDate.removeClass('selected');
                                 cache.selectedDate = $target.addClass('selected');
                                 var curDate = options.date;
@@ -870,11 +872,11 @@
                                 }
                                 break;
                             case NAV['plus']:
-                                //增加时间
+                                //plus time
                                 _doTimeInc($timetable, $timetable.focus);
                                 break;
                             case NAV['minus']:
-                                //减少时间
+                                //minus time
                                 _doTimeDec($timetable, $timetable.focus);
                                 break;
                             default:
@@ -891,27 +893,27 @@
                     .bind("mouseup", proxy)
                     .bind("mouseout", proxy);
             };
-        //初始化面板
+        //initialize all panels
         $el.addClass(options.baseCls);
         $datetable = _createDatePicker();
         _loadDateData($datetable, new Date(options.date));
         $monthtable = _createMonthPicker();
         $timetable = _createTimePicker();
         switch (options.viewMode) {
-            case CONSTS.VIEWMODE.YM : // 年月
+            case CONSTS.VIEWMODE.YM : // yyyyMM
                 _loadMonthData($monthtable, new Date(options.date));
                 $monthtable.appendTo($el).show();
                 break;
-            case CONSTS.VIEWMODE.HMS :   // 时分秒
+            case CONSTS.VIEWMODE.HMS :   // HHmmss
                 _loadTimeData($timetable, options.date);
                 _addTimeOptPane($timetable);
                 $timetable.appendTo($el).show();
                 break;
-            case CONSTS.VIEWMODE.YMD : //年月日
+            case CONSTS.VIEWMODE.YMD : //yyyyMMdd
                 $datetable.appendTo($el).show();
                 $monthtable.hide().appendTo($el);
                 break;
-            default : // 年月日、年月日时分秒
+            default : // yyyyMMddHHmmss
                 $datetable.appendTo($el).show();
                 $monthtable.hide().appendTo($el);
                 var row = $('<tr/>').prependTo($datetable.find('tfoot'));
@@ -950,7 +952,7 @@
     }
 
     /**
-     * dateTimePicker的jQuery构造函数
+     * constructor
      * @param options
      * @returns {*}
      */
@@ -971,7 +973,7 @@
     };
 
     /**
-     * 常量
+     * constants
      * @type {JSON}
      */
     $.fn.datetimepicker.CONSTS = {
@@ -1001,55 +1003,56 @@
         },
 
         VIEWMODE: {
-            YM: 'YM',  //年月
-            YMD: 'YMD', //年月日
-            HMS: 'HMS', //时分秒
-            YMDHMS: 'YMDHMS' //年月日时分秒
+            YM: 'YM',  //yyyyMM
+            YMD: 'YMD', //yyyyMMdd
+            HMS: 'HMS', //HHmmss
+            YMDHMS: 'YMDHMS' //yyyyMMddHHmmss
         },
 
         MINYEAR: 1900,
         MAXYEAR: 2999,
 
         NAV: {
-            'prevm': 2, //上个月
-            'nextm': 3, //下个月
-            'title': 4, //年月显示标题
-            'clear': 5, //清除
-            'today': 6, //今天
-            'dok': 7,   //日期确认
-            'prevy': 8, //前十年
-            'nexty': 9, //后十年
-            'cancel': 10, //取消
-            'mok': 11,   //确认
-            'plus': 12, //增加时间
-            'minus': 13, //减少时间
-            'current': 15, //当前时间
-            'day': 100, //日
-            'month': 200, //月
-            'year': 300 //年
+            'prevm': 2, //previous month
+            'nextm': 3, //next month
+            'title': 4, //title
+            'clear': 5, //clear
+            'today': 6, //today
+            'dok': 7,   //ok in day pane
+            'prevy': 8, //previous ten years
+            'nexty': 9, //next ten years
+            'cancel': 10, //cancel
+            'mok': 11,   //ok in month pane
+            'plus': 12, //plus
+            'minus': 13, //minus
+            'current': 15, //current
+            'day': 100, //day
+            'month': 200, //month
+            'year': 300 //year
         }
     };
 
     /**\
-     * dateTimePicker的默认属性配置
+     * default configure
      * @type {JSON}
      */
     $.fn.datetimepicker.defaults = {
-        baseCls: "perfect-datetimepicker",  //基础样式
+        baseCls: "perfect-datetimepicker",  //Basic class
         viewMode: $.fn.datetimepicker.CONSTS.VIEWMODE.YMD,
-        endDate: null, //结束日期
-        startDate: null, //起始日期
-        language: 'zh',
-        date: null, //初始日期
-        //日期更新事件
+        firstDayOfWeek: 0, //0~6: Sunday~Saturday, default: 0(Sunday)
+        date: null, //initial date
+        endDate: null, //end date
+        startDate: null, //start date
+        language: 'zh', //I18N
+        //date update event
         onDateUpdate: null,
-        //清除按钮事件
+        //clear button click event
         onClear: null,
-        //确认按钮事件
+        //ok button click event
         onOk: null,
-        //关闭按钮事件
+        //close button click event
         onClose: null,
-        //选取今天按钮事件
+        //today button click event
         onToday: null
     };
 }));

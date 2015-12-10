@@ -31,11 +31,12 @@
 <tr><td>startDate</td><td>Date</td><td>start date(起始日期)</td></tr>
 <tr><td>endDate</td><td>Date</td><td>end date(结束日期)</td></tr>
 <tr><td>date</td><td>Date</td><td>initial date(初始值)</td></tr>
-<tr><td>onDateUpdate</td><td>Function</td><td>日期更新事件</td></tr>
-<tr><td>onClear</td><td>Function</td><td>清除按钮事件</td></tr>
-<tr><td>onOk</td><td>Function</td><td>确认按钮事件</td></tr>
-<tr><td>onClose</td><td>Function</td><td>关闭按钮事件</td></tr>
-<tr><td>onToday</td><td>Function</td><td>选取今天按钮事件</td></tr>
+<tr><td>firstDayOfWeek</td><td>Number</td><td>the first Day Of Week,0~6:Sunday~Saturday,default:0(指定每周的第一天，默认周日)</td></tr>
+<tr><td>onDateUpdate</td><td>Function</td><td>date update event(日期更新事件)</td></tr>
+<tr><td>onClear</td><td>Function</td><td>clear button click event(清除按钮事件)</td></tr>
+<tr><td>onOk</td><td>Function</td><td>ok button click event(确认按钮事件)</td></tr>
+<tr><td>onClose</td><td>Function</td><td>close button click event(关闭按钮事件)</td></tr>
+<tr><td>onToday</td><td>Function</td><td>today button click event(选取今天按钮事件)</td></tr>
 </table>
 
 * APIs(调用接口)
@@ -44,6 +45,7 @@
 <tr><td><b>function(方法)</b></td><td><b>type(类型)</b></td><td><b>parameters(参数)</b></td><td><b>description(描述)</b></td></tr>
 <tr><td>getValue</td><td>Function</td><td>无</td><td>获取当前日期对象</td></tr>
 <tr><td>getText</td><td>Function</td><td>format(可选，日期格式，例如: 'yyyy-MM-dd HH:mm:ss')</td><td>获取当前日期的文本格式</td></tr>
+<tr><td>destroy</td><td>Function</td><td>无</td><td>销毁对象</td></tr>
 <tr><td>element</td><td>Object</td><td>无</td><td>返回选择器的jQuery对象</td></tr>
 <tr><td>$datetable</td><td>Object</td><td>无</td><td>返回日期选择面板的jQuery对象</td></tr>
 <tr><td>$monthtable</td><td>Object</td><td>无</td><td>返回年月选择面板的jQuery对象</td></tr>
@@ -56,6 +58,7 @@
     var picker = $('#demo1').datetimepicker({
         date: new Date(),
         viewMode: 'YMDHMS',
+        firstDayOfWeek: 0,
         onDateUpdate: function(){
             $('#date-text').text(this.getText());
         },

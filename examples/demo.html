@@ -31,20 +31,24 @@
         <div id="demo1"></div>
         <h2>Demo2</h2>
         <hr>
-        <h4>年月日格式</h4>
+        <h4>年月日格式(yyyyMMdd)</h4>
         <div id="demo2"></div>
         <h2>Demo3</h2>
         <hr>
-        <h4>年月格式</h4>
+        <h4>年月格式(yyyyMM)</h4>
         <div id="demo3"></div>
         <h2>Demo4</h2>
         <hr>
-        <h4>时间格式</h4>
+        <h4>时间格式(HHmmss)</h4>
         <div id="demo4"></div>
         <h2>Demo5</h2>
         <hr>
-        <h4>起始日期~结束日期</h4>
+        <h4>起始日期~结束日期(date range)</h4>
         <div id="demo5"></div>
+        <h2>Demo6</h2>
+        <hr>
+        <h4>设置每周的第一天(first day of week: Monday)</h4>
+        <div id="demo6"></div>
     </div>
     <script type="text/javascript" src="../lib/jquery-1.11.1.js"></script>
     <script type="text/javascript" src="../dist/jquery.datetimepicker.js"></script>
@@ -75,6 +79,11 @@
                 date: new Date(),
                 startDate: new Date(2015, 1, 1,0 ,0 ,0),
                 endDate: new Date(2015, 10 ,1 ,23 ,59 ,59),
+                viewMode: 'YMDHMS'
+            });
+            $('#demo6').datetimepicker({
+                date: new Date(),
+                firstDayOfWeek: 1,
                 viewMode: 'YMDHMS'
             });
         });
