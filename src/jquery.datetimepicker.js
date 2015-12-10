@@ -15,7 +15,7 @@
      * @param options
      * @returns {{}}
      */
-    var dateTimePicker = function(element, options){
+    function DateTimePicker(element, options){
         var picker = {},
             CONSTS = $.fn.datetimepicker.CONSTS,
             NAV = CONSTS.NAV,
@@ -24,6 +24,7 @@
                 showYear: null,
                 showMonth: null
             },
+            $el = $(element),
             $datetable, //日期面板
             $monthtable, //年月面板
             $timetable, //时间面板
@@ -884,14 +885,14 @@
                         $target.removeClass('hover');
                     }
                 };
-                element.unbind();
-                element.bind("mousedown", proxy)
+                $el.unbind();
+                $el.bind("mousedown", proxy)
                     .bind("mouseover", proxy)
                     .bind("mouseup", proxy)
                     .bind("mouseout", proxy);
             };
         //初始化面板
-        element.addClass(options.baseCls);
+        $el.addClass(options.baseCls);
         $datetable = _createDatePicker();
         _loadDateData($datetable, new Date(options.date));
         $monthtable = _createMonthPicker();
@@ -899,27 +900,27 @@
         switch (options.viewMode) {
             case CONSTS.VIEWMODE.YM : // 年月
                 _loadMonthData($monthtable, new Date(options.date));
-                $monthtable.appendTo(element).show();
+                $monthtable.appendTo($el).show();
                 break;
             case CONSTS.VIEWMODE.HMS :   // 时分秒
                 _loadTimeData($timetable, options.date);
                 _addTimeOptPane($timetable);
-                $timetable.appendTo(element).show();
+                $timetable.appendTo($el).show();
                 break;
             case CONSTS.VIEWMODE.YMD : //年月日
-                $datetable.appendTo(element).show();
-                $monthtable.hide().appendTo(element);
+                $datetable.appendTo($el).show();
+                $monthtable.hide().appendTo($el);
                 break;
             default : // 年月日、年月日时分秒
-                $datetable.appendTo(element).show();
-                $monthtable.hide().appendTo(element);
+                $datetable.appendTo($el).show();
+                $monthtable.hide().appendTo($el);
                 var row = $('<tr/>').prependTo($datetable.find('tfoot'));
                 _loadTimeData($timetable, options.date);
                 $timetable.show().appendTo($('<td colspan="7"/>').appendTo(row));
                 break;
         }
         _bindEvts();
-        picker.element = element;
+        picker.element = $el;
         picker.$datetable = $datetable;
         picker.$monthtable = $monthtable;
         picker.$timetable = $timetable;
@@ -932,14 +933,21 @@
             }
             return date;
         };
+
+        /** API **/
         picker.setValue = function (value) {
             options.date = value;
         };
         picker.getText = function (format) {
             return utils.date2str(this.getValue(), format?format:'yyyy/MM/dd HH:mm:ss');
         };
+        picker.destroy = function () {
+            this.element.removeData('datetimepicker');
+            this.element.remove();
+            return picker;
+        };
         return picker;
-    };
+    }
 
     /**
      * dateTimePicker的jQuery构造函数
@@ -948,12 +956,18 @@
      */
     $.fn.datetimepicker = function (options) {
         return this.each(function () {
-            var $this = $(this);
-            if (!$this.data('dateTimePicker')) {
+            if (!$(this).data('dateTimePicker')) {
                 options = $.extend(true, {}, $.fn.datetimepicker.defaults, options);
-                $this.data('dateTimePicker', dateTimePicker($this, options));
+                $(this).data('dateTimePicker', new DateTimePicker(this, options));
             }
         });
+    };
+
+    $.fn.datetimepicker.init = function(el, options){
+        var o = $.extend(true, {}, $.fn.datetimepicker.defaults, options);
+        var dtp = new DateTimePicker(el, o);
+        $(el).data('dateTimePicker', dtp);
+        return dtp;
     };
 
     /**

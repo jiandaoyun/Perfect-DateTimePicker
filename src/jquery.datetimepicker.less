@@ -64,7 +64,9 @@
   .border-radius(4px);
   line-height: 0;
   border: none;
-
+  *{
+    .box-sizing();
+  }
   table{
     border-collapse: separate;
     border-spacing: 2px;
@@ -89,7 +91,6 @@
     }
   }
   td {
-    .box-sizing();
     &.name {
       font-weight: bold;
     }

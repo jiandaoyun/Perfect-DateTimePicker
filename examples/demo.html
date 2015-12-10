@@ -71,7 +71,7 @@
                 date: new Date(),
                 viewMode: 'HMS'
             });
-            $('#demo5').datetimepicker({
+            var demoDtp = $.fn.datetimepicker.init('#demo5', {
                 date: new Date(),
                 startDate: new Date(2015, 1, 1,0 ,0 ,0),
                 endDate: new Date(2015, 10 ,1 ,23 ,59 ,59),
