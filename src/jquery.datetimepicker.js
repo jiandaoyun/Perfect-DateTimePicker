@@ -19,7 +19,7 @@
         var picker = {},
             CONSTS = $.fn.datetimepicker.CONSTS,
             NAV = CONSTS.NAV,
-            I18N = CONSTS.I18N[options.language === 'en'?'en':'zh'],
+            I18N = (CONSTS.I18N[options.language])? CONSTS.I18N[options.language] : CONSTS.I18N['en'],
             cache = {
                 showYear: null,
                 showMonth: null
@@ -49,11 +49,11 @@
                         return MD[month];
                     }
                 },
-                
+
                 isEmpty: function(value){
                     return value === "" || value == null;
                 },
-                
+
                 applyFunc: function(obj, func, param, defaultValue){
                     if ($.isFunction(func)) {
                         return func.apply(obj, param ? param : []);
@@ -63,7 +63,7 @@
 
                 /**
                  * 让字符串通过指定字符做补齐的函数
-                 * 
+                 *
                  * @param text {String}  原始字符串
                  * @param size {Number}  总共需要的位数
                  * @param ch {String}  用于补齐的字符
@@ -195,7 +195,7 @@
                     return result;
                 }
             },
-            
+
             /**
              * create button cell
              * @param tr {$} tr
@@ -999,6 +999,17 @@
                 OK: "OK",
                 CURRENT: "Now",
                 TIME: "Time"
+            },
+            de: {
+                SDN: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
+                MN: ["Jan", "Feb", "Mrz", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+                DN: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"],
+                CALENDAR: "Kalender",
+                CLEAR: "Löschen",
+                TODAY: "Heute",
+                OK: "OK",
+                CURRENT: "Jetzt",
+                TIME: "Zeit"
             }
         },
 
@@ -1032,8 +1043,8 @@
         }
     };
 
-    /**\
-     * default configure
+    /**
+     * default configuration
      * @type {JSON}
      */
     $.fn.datetimepicker.defaults = {
@@ -1043,7 +1054,7 @@
         date: null, //initial date
         endDate: null, //end date
         startDate: null, //start date
-        language: 'zh', //I18N
+        language: 'en', //I18N
         //date update event
         onDateUpdate: null,
         //clear button click event
