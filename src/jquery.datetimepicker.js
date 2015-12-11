@@ -49,11 +49,11 @@
                         return MD[month];
                     }
                 },
-                
+
                 isEmpty: function(value){
                     return value === "" || value == null;
                 },
-                
+
                 applyFunc: function(obj, func, param, defaultValue){
                     if ($.isFunction(func)) {
                         return func.apply(obj, param ? param : []);
@@ -63,7 +63,7 @@
 
                 /**
                  * 让字符串通过指定字符做补齐的函数
-                 * 
+                 *
                  * @param text {String}  原始字符串
                  * @param size {Number}  总共需要的位数
                  * @param ch {String}  用于补齐的字符
@@ -195,7 +195,7 @@
                     return result;
                 }
             },
-            
+
             /**
              * create button cell
              * @param tr {$} tr
@@ -682,36 +682,52 @@
                 utils.applyFunc(picker, options.onDateUpdate, arguments, false);
             },
 
+            /**
+             * Make sure a number is between a minimum and a maximum
+             */
+            clampNumber = function(value, min, max) {
+              return isNaN(value) ? min : Math.min(max, Math.max(min, value));
+            },
+
+            /**
+             * create the time picker row containing the individual time input fields
+             */
             _createTimePicker = function () {
                 var table = $('<table cellspacing = "0" cellpadding = "0" class="tt"/>');
                 var tbody = $('<tbody>').appendTo(table);
-                table.$h = $('<input/>').data('time', 'h').keyup(function () {
-                    var text = this.value;
-                    var value = parseInt(text, 10);
-                    if (value < 24 && value >= 0) {
-                        options.date.setHours(value);
-                        utils.applyFunc(picker, options.onDateUpdate, arguments);
+                table.$h = $('<input type="number" min="0" max="23" maxlength="2"/>').data('time', 'h').change(function () {
+                    var value = parseInt(this.value, 10);
+                    var hours = clampNumber(value, 0, 23);
+                    // Replace the value if it has not been not a valid number
+                    if (value != hours) {
+                        this.value = hours;
                     }
+                    options.date.setHours(hours);
+                    utils.applyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
                     table.focus = $(this);
                 });
-                table.$m = $('<input/>').data('time', 'm').keyup(function () {
-                    var text = this.value;
-                    var value = parseInt(text, 10);
-                    if (value < 60 && value >= 0) {
-                        options.date.setMinutes(value);
-                        utils.applyFunc(picker, options.onDateUpdate, arguments);
+                table.$m = $('<input type="number" min="0" max="59" maxlength="2"/>').data('time', 'm').change(function () {
+                    var value = parseInt(this.value, 10);
+                    var minutes = clampNumber(value, 0, 59);
+                    // Replace the value if it has not been not a valid number
+                    if (value != minutes) {
+                        this.value = minutes;
                     }
+                    options.date.setMinutes(minutes);
+                    utils.applyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
                     table.focus = $(this);
                 });
-                table.$s = $('<input/>').data('time', 's').keyup(function () {
-                    var text = this.value;
-                    var value = parseInt(text, 10);
-                    if (value < 60 && value >= 0) {
-                        options.date.setSeconds(value);
-                        utils.applyFunc(picker, options.onDateUpdate, arguments);
+                table.$s = $('<input type="number" min="0" max="59" maxlength="2"/>').data('time', 's').change(function () {
+                    var value = parseInt(this.value, 10);
+                    var seconds = clampNumber(value, 0, 59);
+                    // Replace the value if it has not been not a valid number
+                    if (value != seconds) {
+                        this.value = seconds;
                     }
+                    options.date.setSeconds(seconds);
+                    utils.applyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
                     table.focus = $(this);
                 });
@@ -893,8 +909,10 @@
                     .bind("mouseup", proxy)
                     .bind("mouseout", proxy);
             };
+
         //initialize all panels
-        $el.addClass(options.baseCls);
+        // wrap widget in a form element to be able to turn off html5 form validation
+        $el = $('<form novalidate/>').appendTo($el).addClass(options.baseCls);
         $datetable = _createDatePicker();
         _loadDateData($datetable, new Date(options.date));
         $monthtable = _createMonthPicker();
