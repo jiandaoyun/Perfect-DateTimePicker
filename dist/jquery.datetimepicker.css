@@ -1,6 +1,6 @@
 /***常量***/
-/***函数***/
-/***样式***/
+/***function***/
+/***style***/
 .perfect-datetimepicker {
   position: relative;
   width: 240px;
@@ -103,7 +103,18 @@
 .perfect-datetimepicker table.tt input:focus {
   border-color: #66afe9;
   -webkit-box-shadow: 0 0 6px rgba(102, 175, 233, 0.6);
+  -moz-box-shadow: 0 0 6px rgba(102, 175, 233, 0.6);
   box-shadow: 0 0 6px rgba(102, 175, 233, 0.6);
+}
+.perfect-datetimepicker table.tt input[type=number]::-webkit-inner-spin-button,
+.perfect-datetimepicker table.tt input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.perfect-datetimepicker table.tt input[type=number] {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 .perfect-datetimepicker tbody td.hover {
   background-color: #eeeeee;

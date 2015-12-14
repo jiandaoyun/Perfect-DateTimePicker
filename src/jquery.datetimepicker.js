@@ -912,7 +912,7 @@
 
         //initialize all panels
         // wrap widget in a form element to be able to turn off html5 form validation
-        $el = $('<form novalidate/>').appendTo($el).addClass(options.baseCls);
+        var $wrapper = $('<form novalidate/>').appendTo($el).addClass(options.baseCls);
         $datetable = _createDatePicker();
         _loadDateData($datetable, new Date(options.date));
         $monthtable = _createMonthPicker();
@@ -920,20 +920,20 @@
         switch (options.viewMode) {
             case CONSTS.VIEWMODE.YM : // yyyyMM
                 _loadMonthData($monthtable, new Date(options.date));
-                $monthtable.appendTo($el).show();
+                $monthtable.appendTo($wrapper).show();
                 break;
             case CONSTS.VIEWMODE.HMS :   // HHmmss
                 _loadTimeData($timetable, options.date);
                 _addTimeOptPane($timetable);
-                $timetable.appendTo($el).show();
+                $timetable.appendTo($wrapper).show();
                 break;
             case CONSTS.VIEWMODE.YMD : //yyyyMMdd
-                $datetable.appendTo($el).show();
-                $monthtable.hide().appendTo($el);
+                $datetable.appendTo($wrapper).show();
+                $monthtable.hide().appendTo($wrapper);
                 break;
             default : // yyyyMMddHHmmss
-                $datetable.appendTo($el).show();
-                $monthtable.hide().appendTo($el);
+                $datetable.appendTo($wrapper).show();
+                $monthtable.hide().appendTo($wrapper);
                 var row = $('<tr/>').prependTo($datetable.find('tfoot'));
                 _loadTimeData($timetable, options.date);
                 $timetable.show().appendTo($('<td colspan="7"/>').appendTo(row));
