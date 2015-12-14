@@ -642,7 +642,7 @@
             _doTimeInc = function(timetable, input){
                 var t = input.data('time');
                 if (t === 'h') {
-                    var text = (optionsdate.getHours() + 1) % 24;
+                    var text = (options.date.getHours() + 1) % 24;
                     options.date.setHours(text);
                     timetable.$h.val(utils.leftPad((text+''), 2, '0'));
                 } else if (t === 'm') {
