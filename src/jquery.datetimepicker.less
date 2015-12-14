@@ -24,6 +24,7 @@
 }
 .box-shadow(@shadow) {
   -webkit-box-shadow: @shadow;
+  -moz-box-shadow: @shadow;
   box-shadow: @shadow;
 }
 .box-sizing(@box-model:border-box) {
@@ -139,6 +140,18 @@
     }
     input:focus{
       .inputFocus();
+    }
+    // Display the input elements as normal text inputs (The features added
+    // by type=number will still work)
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    input[type=number] {
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
+        appearance: textfield;
     }
   }
   tbody td{
