@@ -781,6 +781,7 @@
                     if (type === 'mouseover') {
                         $target.addClass('hover');
                     } else if (type === "mouseup") {
+                        $target.removeClass('hover');
                         switch (navitype) {
                             case NAV['prevm']:
                                 //previous month
