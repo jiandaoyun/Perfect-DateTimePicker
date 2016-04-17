@@ -70,7 +70,7 @@
                  * @return {String}  补齐后的字符串
                  */
                 leftPad: function (text, size, ch) {
-                    var result = String(text);
+                    var result = text + '';
                     if (!ch) {
                         ch = " ";
                     }
@@ -105,12 +105,12 @@
                             }else if(len < 2){
                                 str = date.getMonth() + 1;
                             }else{
-                                str = this.leftPad(date.getMonth() + 1 +'', 2,'0');
+                                str = this.leftPad(date.getMonth() + 1, 2,'0');
                             }
                             break;
                         case 'd': //日
                             if(len > 1){
-                                str = this.leftPad(date.getDate()+'', 2,'0');
+                                str = this.leftPad(date.getDate(), 2,'0');
                             }else{
                                 str = date.getDate();
                             }
@@ -121,34 +121,34 @@
                                 hour = 12;
                             }
                             if(len > 1){
-                                str = this.leftPad(hour +'', 2,'0');
+                                str = this.leftPad(hour, 2,'0');
                             }else{
                                 str = hour;
                             }
                             break;
                         case 'H': //时(24)
                             if(len > 1){
-                                str = this.leftPad(date.getHours()+'', 2,'0');
+                                str = this.leftPad(date.getHours(), 2,'0');
                             }else{
                                 str = date.getHours();
                             }
                             break;
                         case 'm':
                             if(len > 1){
-                                str = this.leftPad(date.getMinutes()+'', 2,'0');
+                                str = this.leftPad(date.getMinutes(), 2,'0');
                             }else{
                                 str = date.getMinutes();
                             }
                             break;
                         case 's':
                             if(len > 1){
-                                str = this.leftPad(date.getSeconds()+'', 2,'0');
+                                str = this.leftPad(date.getSeconds(), 2,'0');
                             }else{
                                 str = date.getSeconds();
                             }
                             break;
                         case 'a':
-                            str = date.getHours()<12?'am':'pm';
+                            str = date.getHours() < 12 ? 'am' : 'pm';
                             break;
                         default:
                             str = format.str;
@@ -666,15 +666,15 @@
                 if (inputType === 'h') {
                     var hours = (options.date.getHours() + 1) % 24;
                     options.date.setHours(hours);
-                    timetable.$h.val(utils.leftPad((hours+''), 2, '0'));
+                    timetable.$h.val(utils.leftPad(hours, 2, '0'));
                 } else if (inputType === 'm') {
                     var minutes = (options.date.getMinutes() + 5) % 60;
                     options.date.setMinutes(minutes);
-                    timetable.$m.val(utils.leftPad((minutes+''), 2, '0'));
+                    timetable.$m.val(utils.leftPad(minutes, 2, '0'));
                 } else {
                     var seconds = (options.date.getSeconds() + 5) % 60;
                     options.date.setSeconds(seconds);
-                    timetable.$s.val(utils.leftPad((seconds+''), 2, '0'));
+                    timetable.$s.val(utils.leftPad(seconds, 2, '0'));
                 }
                 input.select();
                 utils.applyFunc(picker, options.onDateUpdate, arguments, false);
@@ -690,15 +690,15 @@
                 if (inputType === 'h') {
                     var hours = (options.date.getHours() + 23) % 24;
                     options.date.setHours(hours);
-                    timetable.$h.val(utils.leftPad((hours+''), 2, '0'));
+                    timetable.$h.val(utils.leftPad(hours, 2, '0'));
                 } else if (inputType === 'm') {
                     var minutes = (options.date.getMinutes() + 55) % 60;
                     options.date.setMinutes(minutes);
-                    timetable.$m.val(utils.leftPad((minutes+''), 2, '0'));
+                    timetable.$m.val(utils.leftPad(minutes, 2, '0'));
                 } else {
                     var seconds = (options.date.getSeconds() + 55) % 60;
                     options.date.setSeconds(seconds);
-                    timetable.$s.val(utils.leftPad((seconds+''), 2, '0'));
+                    timetable.$s.val(utils.leftPad(seconds, 2, '0'));
                 }
                 input.select();
                 utils.applyFunc(picker, options.onDateUpdate, arguments, false);
