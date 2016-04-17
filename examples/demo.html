@@ -13,26 +13,42 @@
 </head>
 <body>
     <div id="wrapper">
-        <h2>Demo1</h2>
-        <h4>年月日+时间格式</h4>
+        <h2>Demo 1.1</h2>
+        <h4>Date + time format</h4>
         <div>
             <span>getText(): </span>
-            <span id="date-text1"></span>
+            <span id="date-text1-1"></span>
         </div>
         <div>
             <span>getText('yyyy-MM-dd'): </span>
-            <span id="date-text-ymd1"></span>
+            <span id="date-text-ymd1-1"></span>
         </div>
         <div>
             <span>getValue(): </span>
-            <span id="date-value1"></span>
+            <span id="date-value1-1"></span>
         </div>
-        <div id="demo1"></div>
+        <div id="demo1-1"></div>
+
+        <h2>Demo 1.2</h2>
+        <h4>Date + time format (without seconds)</h4>
+        <div>
+            <span>getText(): </span>
+            <span id="date-text1-2"></span>
+        </div>
+        <div>
+            <span>getText('yyyy-MM-dd'): </span>
+            <span id="date-text-ymd1-2"></span>
+        </div>
+        <div>
+            <span>getValue(): </span>
+            <span id="date-value1-2"></span>
+        </div>
+        <div id="demo1-2"></div>
 
 
         <hr>
-        <h2>Demo2</h2>
-        <h4>年月日格式(yyyyMMdd)</h4>
+        <h2>Demo 2</h2>
+        <h4>Date only (yyyyMMdd)</h4>
         <div>
             <span>getText(): </span>
             <span id="date-text2"></span>
@@ -49,8 +65,8 @@
 
 
         <hr>
-        <h2>Demo3</h2>
-        <h4>年月格式(yyyyMM)</h4>
+        <h2>Demo 3</h2>
+        <h4>Year + month (yyyyMM)</h4>
         <div>
             <span>getText(): </span>
             <span id="date-text3"></span>
@@ -67,26 +83,43 @@
 
 
         <hr>
-        <h2>Demo4</h2>
-        <h4>时间格式(HHmmss)</h4>
+        <h2>Demo 4.1</h2>
+        <h4>Time only (HHmmss)</h4>
         <div>
             <span>getText(): </span>
-            <span id="date-text4"></span>
+            <span id="date-text4-1"></span>
         </div>
         <div>
             <span>getText('yyyy-MM-dd'): </span>
-            <span id="date-text-ymd4"></span>
+            <span id="date-text-ymd4-1"></span>
         </div>
         <div>
             <span>getValue(): </span>
-            <span id="date-value4"></span>
+            <span id="date-value4-1"></span>
         </div>
-        <div id="demo4"></div>
+        <div id="demo4-1"></div>
+
+        <hr>
+        <h2>Demo 4.2</h2>
+        <h4>Time only (HHmm)</h4>
+        <div>
+            <span>getText(): </span>
+            <span id="date-text4-2"></span>
+        </div>
+        <div>
+            <span>getText('yyyy-MM-dd'): </span>
+            <span id="date-text-ymd4-2"></span>
+        </div>
+        <div>
+            <span>getValue(): </span>
+            <span id="date-value4-2"></span>
+        </div>
+        <div id="demo4-2"></div>
 
 
         <hr>
-        <h2>Demo5</h2>
-        <h4>起始日期~结束日期(date range)</h4>
+        <h2>Demo 5</h2>
+        <h4>Date range</h4>
         <div>
             <span>getText(): </span>
             <span id="date-text5"></span>
@@ -103,8 +136,8 @@
 
 
         <hr>
-        <h2>Demo6</h2>
-        <h4>设置每周的第一天(first day of week: Monday)</h4>
+        <h2>Demo 6</h2>
+        <h4>First day of week: Monday</h4>
         <div>
             <span>getText(): </span>
             <span id="date-text6"></span>
@@ -124,13 +157,22 @@
     <script type="text/javascript" src="../dist/jquery.datetimepicker.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#demo1').datetimepicker({
+            $('#demo1-1').datetimepicker({
                 date: new Date(),
                 viewMode: 'YMDHMS',
                 onDateUpdate: function(){
-                    $('#date-text1').text(this.getText());
-                    $('#date-text-ymd1').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value1').text(this.getValue());
+                    $('#date-text1-1').text(this.getText());
+                    $('#date-text-ymd1-1').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value1-1').text(this.getValue());
+                }
+            });
+            $('#demo1-2').datetimepicker({
+                date: new Date(),
+                viewMode: 'YMDHM',
+                onDateUpdate: function(){
+                    $('#date-text1-2').text(this.getText());
+                    $('#date-text-ymd1-2').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value1-2').text(this.getValue());
                 }
             });
             $('#demo2').datetimepicker({
@@ -151,13 +193,22 @@
                     $('#date-value3').text(this.getValue());
                 }
             });
-            $('#demo4').datetimepicker({
+            $('#demo4-1').datetimepicker({
                 date: new Date(),
                 viewMode: 'HMS',
                 onDateUpdate: function(){
-                    $('#date-text4').text(this.getText());
-                    $('#date-text-ymd4').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value4').text(this.getValue());
+                    $('#date-text4-1').text(this.getText());
+                    $('#date-text-ymd4-1').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value4-1').text(this.getValue());
+                }
+            });
+            $('#demo4-2').datetimepicker({
+                date: new Date(),
+                viewMode: 'HM',
+                onDateUpdate: function(){
+                    $('#date-text4-2').text(this.getText());
+                    $('#date-text-ymd4-2').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value4-2').text(this.getValue());
                 }
             });
             var demoDtp = $.fn.datetimepicker.init('#demo5', {
