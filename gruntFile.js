@@ -19,31 +19,39 @@ module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
-        //删除文件
+        // Delete generated files
         clean: {
-            //清理原有js
             all: {
-                src: [ 'dist/*.js']
+                src: [ 'dist/*.js', 'dist/*.css' ]
             }
         },
 
-        // 压缩js
+        // Compile less to css
+        less: {
+            compile: {
+                files: {'dist/jquery.datetimepicker.css': 'src/jquery.datetimepicker.less'}
+            },
+        },
+
+        // Compress javascript
         uglify: {
             product: jsDumpTasks
         }
     });
 
-    // 加载指定插件任务
+    // Loads specified plug-in tasks
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
 
-    //任务
-    grunt.registerTask('product', [
+    // Grunt runner
+    grunt.registerTask('default', [
         'clean:all',
+        'less:compile',
         'uglify:product'
     ]);
 };
