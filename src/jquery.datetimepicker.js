@@ -30,170 +30,168 @@
             $monthtable, //YM(year and month) panel
             $timetable, //T(time) panel
 
-            utils = {
-                /**
-                 * calculate thu number of days in one month
-                 * @param date {Date} date
-                 * @param month {Number} month
-                 * @private
-                 */
-                getMonthDays: function(date, month){
-                    var MD = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-                    var year = date.getFullYear();
-                    if (month == null) {
-                        month = date.getMonth();
-                    }
-                    if (((0 === (year % 4)) && ( (0 !== (year % 100)) || (0 === (year % 400)))) && month === 1) {
-                        return 29;
-                    } else {
-                        return MD[month];
-                    }
-                },
-
-                isEmpty: function(value){
-                    return value === "" || value == null;
-                },
-
-                applyFunc: function(obj, func, param, defaultValue){
-                    if ($.isFunction(func)) {
-                        return func.apply(obj, param ? param : []);
-                    }
-                    return defaultValue;
-                },
-
-                /**
-                 * 让字符串通过指定字符做补齐的函数
-                 *
-                 * @param text {String}  原始字符串
-                 * @param size {Number}  总共需要的位数
-                 * @param ch {String}  用于补齐的字符
-                 * @return {String}  补齐后的字符串
-                 */
-                leftPad: function (text, size, ch) {
-                    var result = text + '';
-                    if (!ch) {
-                        ch = " ";
-                    }
-                    while (result.length < size) {
-                        result = ch + result;
-                    }
-                    return result.toString();
-                },
-
-                /**
-                 * 日期格式解析
-                 * @param format {JSON} 日期格式内容
-                 * @param date {Date} 日期对象
-                 * @returns {String} 返回日期字符串
-                 */
-                _compileDateFormat: function (format, date) {
-                    var str = format.str, len = format.len, ch = format['char'];
-                    switch(ch){
-                        case 'E': //星期
-                            str = CONSTS.DN[date.getDay()];
-                            break;
-                        case 'y': //年
-                            if(len <= 3){
-                                str = (date.getFullYear()+'').slice(2,4);
-                            }else{
-                                str = date.getFullYear();
-                            }
-                            break;
-                        case 'M': //月
-                            if(len > 2){
-                                str = CONSTS.MN[date.getMonth()];
-                            }else if(len < 2){
-                                str = date.getMonth() + 1;
-                            }else{
-                                str = this.leftPad(date.getMonth() + 1, 2,'0');
-                            }
-                            break;
-                        case 'd': //日
-                            if(len > 1){
-                                str = this.leftPad(date.getDate(), 2,'0');
-                            }else{
-                                str = date.getDate();
-                            }
-                            break;
-                        case 'h': //时(12)
-                            var hour = date.getHours()%12;
-                            if(hour === 0){
-                                hour = 12;
-                            }
-                            if(len > 1){
-                                str = this.leftPad(hour, 2,'0');
-                            }else{
-                                str = hour;
-                            }
-                            break;
-                        case 'H': //时(24)
-                            if(len > 1){
-                                str = this.leftPad(date.getHours(), 2,'0');
-                            }else{
-                                str = date.getHours();
-                            }
-                            break;
-                        case 'm':
-                            if(len > 1){
-                                str = this.leftPad(date.getMinutes(), 2,'0');
-                            }else{
-                                str = date.getMinutes();
-                            }
-                            break;
-                        case 's':
-                            if(len > 1){
-                                str = this.leftPad(date.getSeconds(), 2,'0');
-                            }else{
-                                str = date.getSeconds();
-                            }
-                            break;
-                        case 'a':
-                            str = date.getHours() < 12 ? 'am' : 'pm';
-                            break;
-                        default:
-                            str = format.str;
-                            break;
-                    }
-                    return str;
-                },
-
-                /**
-                 * 日期对象按照指定格式转化成字符串
-                 * e.g. Thu Dec 12 2013 00:00:00 GMT+0800 + 'yyyy-MM-dd' --> '2013-12-12'
-                 * @param {Date} date 日期对象
-                 * @param {String} format 日期格式
-                 * @return {String} 返回日期字符串
-                 */
-                date2str: function(date, format){
-                    if(!date){
-                        return '';
-                    }
-                    var len = format.length, result = '';
-                    if (len > 0) {
-                        var flagch = format.charAt(0), start = 0, str = flagch;
-                        for (var i = 1; i < len; i++) {
-                            var ch = format.charAt(i);
-                            if (flagch !== ch) {
-                                result += this._compileDateFormat({
-                                    'char': flagch,
-                                    'str': str,
-                                    'len': i - start
-                                }, date);
-                                flagch = ch;
-                                start = i;
-                                str = flagch;
-                            }else{
-                                str +=ch;
-                            }
-                        }
-                        result += this._compileDateFormat({
-                            'char': flagch,
-                            'str': str,
-                            'len': len - start
-                        }, date);
-                    }
-                    return result;
+            /**
+             * calculate thu number of days in one month
+             * @param date {Date} date
+             * @param month {Number} month
+             * @private
+             */
+            utilsGetMonthDays = function(date, month){
+                var MD = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+                var year = date.getFullYear();
+                if (month == null) {
+                    month = date.getMonth();
                 }
+                if (((0 === (year % 4)) && ( (0 !== (year % 100)) || (0 === (year % 400)))) && month === 1) {
+                    return 29;
+                } else {
+                    return MD[month];
+                }
+            },
+
+            utilsIsEmpty = function(value){
+                return value === "" || value == null;
+            },
+
+            utilsApplyFunc = function(obj, func, param, defaultValue){
+                if ($.isFunction(func)) {
+                    return func.apply(obj, param ? param : []);
+                }
+                return defaultValue;
+            },
+
+            /**
+             * 让字符串通过指定字符做补齐的函数
+             *
+             * @param text {String}  原始字符串
+             * @param size {Number}  总共需要的位数
+             * @param ch {String}  用于补齐的字符
+             * @return {String}  补齐后的字符串
+             */
+            utilsLeftPad = function (text, size, ch) {
+                var result = text + '';
+                if (!ch) {
+                    ch = " ";
+                }
+                while (result.length < size) {
+                    result = ch + result;
+                }
+                return result.toString();
+            },
+
+            /**
+             * 日期格式解析
+             * @param format {JSON} 日期格式内容
+             * @param date {Date} 日期对象
+             * @returns {String} 返回日期字符串
+             */
+            _compileDateFormat = function (format, date) {
+                var str = format.str, len = format.len, ch = format['char'];
+                switch(ch){
+                    case 'E': //星期
+                        str = CONSTS.DN[date.getDay()];
+                        break;
+                    case 'y': //年
+                        if(len <= 3){
+                            str = (date.getFullYear()+'').slice(2,4);
+                        }else{
+                            str = date.getFullYear();
+                        }
+                        break;
+                    case 'M': //月
+                        if(len > 2){
+                            str = CONSTS.MN[date.getMonth()];
+                        }else if(len < 2){
+                            str = date.getMonth() + 1;
+                        }else{
+                            str = utilsLeftPad(date.getMonth() + 1, 2,'0');
+                        }
+                        break;
+                    case 'd': //日
+                        if(len > 1){
+                            str = utilsLeftPad(date.getDate(), 2,'0');
+                        }else{
+                            str = date.getDate();
+                        }
+                        break;
+                    case 'h': //时(12)
+                        var hour = date.getHours()%12;
+                        if(hour === 0){
+                            hour = 12;
+                        }
+                        if(len > 1){
+                            str = utilsLeftPad(hour, 2,'0');
+                        }else{
+                            str = hour;
+                        }
+                        break;
+                    case 'H': //时(24)
+                        if(len > 1){
+                            str = utilsLeftPad(date.getHours(), 2,'0');
+                        }else{
+                            str = date.getHours();
+                        }
+                        break;
+                    case 'm':
+                        if(len > 1){
+                            str = utilsLeftPad(date.getMinutes(), 2,'0');
+                        }else{
+                            str = date.getMinutes();
+                        }
+                        break;
+                    case 's':
+                        if(len > 1){
+                            str = utilsLeftPad(date.getSeconds(), 2,'0');
+                        }else{
+                            str = date.getSeconds();
+                        }
+                        break;
+                    case 'a':
+                        str = date.getHours() < 12 ? 'am' : 'pm';
+                        break;
+                    default:
+                        str = format.str;
+                        break;
+                }
+                return str;
+            },
+
+            /**
+             * 日期对象按照指定格式转化成字符串
+             * e.g. Thu Dec 12 2013 00:00:00 GMT+0800 + 'yyyy-MM-dd' --> '2013-12-12'
+             * @param {Date} date 日期对象
+             * @param {String} format 日期格式
+             * @return {String} 返回日期字符串
+             */
+            utilsDate2str = function(date, format){
+                if(!date){
+                    return '';
+                }
+                var len = format.length, result = '';
+                if (len > 0) {
+                    var flagch = format.charAt(0), start = 0, str = flagch;
+                    for (var i = 1; i < len; i++) {
+                        var ch = format.charAt(i);
+                        if (flagch !== ch) {
+                            result += _compileDateFormat({
+                                'char': flagch,
+                                'str': str,
+                                'len': i - start
+                            }, date);
+                            flagch = ch;
+                            start = i;
+                            str = flagch;
+                        }else{
+                            str +=ch;
+                        }
+                    }
+                    result += _compileDateFormat({
+                        'char': flagch,
+                        'str': str,
+                        'len': len - start
+                    }, date);
+                }
+                return result;
             },
 
             /**
@@ -430,7 +428,7 @@
                 var day = date.getDate(),
                     edd = options.endDate,
                     std = options.startDate;
-                var max = utils.getMonthDays(date, m);
+                var max = utilsGetMonthDays(date, m);
                 if (day > max) {
                     date.setDate(max);
                 }
@@ -468,7 +466,7 @@
                 table.$title.text(I18N.MN[month] + ", " + year);
                 //set button
                 var nextDay = new Date(date);
-                nextDay.setDate(utils.getMonthDays(nextDay, null) + 1);
+                nextDay.setDate(utilsGetMonthDays(nextDay, null) + 1);
                 if ((edd && nextDay > edd) || nextDay.getFullYear() > CONSTS.MAXYEAR) {
                     table.$nextm.addClass('disabled').removeClass('hover').data('disabled', true);
                 } else {
@@ -595,7 +593,7 @@
                         $mcell.addClass("selected");
                         cache.selectedMonth = $mcell;
                     }
-                    if ((!utils.isEmpty(minMonth) && i < minMonth) || (!utils.isEmpty(maxMonth) && i > maxMonth)) {
+                    if ((!utilsIsEmpty(minMonth) && i < minMonth) || (!utilsIsEmpty(maxMonth) && i > maxMonth)) {
                         $mcell.addClass("disabled").data('disabled', true);
                     } else {
                         $mcell.removeClass("disabled").data('disabled', false);
@@ -608,7 +606,7 @@
                             $ycell.addClass("selected");
                             cache.selectedYear = $ycell;
                         }
-                        if ((!utils.isEmpty(minYear) && years[i] < minYear) || (!utils.isEmpty(maxYear) && years[i] > maxYear)) {
+                        if ((!utilsIsEmpty(minYear) && years[i] < minYear) || (!utilsIsEmpty(maxYear) && years[i] > maxYear)) {
                             $ycell.addClass("disabled").data('disabled', true);
                         } else {
                             $ycell.removeClass("disabled").data('disabled', false);
@@ -650,9 +648,9 @@
                 var hour = date.getHours()+'',
                     minute = date.getMinutes()+'',
                     second = date.getSeconds()+'';
-                table.$h.val(utils.leftPad(hour, 2, '0'));
-                table.$m.val(utils.leftPad(minute, 2, '0'));
-                table.$s.val(utils.leftPad(second, 2, '0'));
+                table.$h.val(utilsLeftPad(hour, 2, '0'));
+                table.$m.val(utilsLeftPad(minute, 2, '0'));
+                table.$s.val(utilsLeftPad(second, 2, '0'));
             },
 
             /**
@@ -666,18 +664,18 @@
                 if (inputType === 'h') {
                     var hours = (options.date.getHours() + 1) % 24;
                     options.date.setHours(hours);
-                    timetable.$h.val(utils.leftPad(hours, 2, '0'));
+                    timetable.$h.val(utilsLeftPad(hours, 2, '0'));
                 } else if (inputType === 'm') {
                     var minutes = (options.date.getMinutes() + 5) % 60;
                     options.date.setMinutes(minutes);
-                    timetable.$m.val(utils.leftPad(minutes, 2, '0'));
+                    timetable.$m.val(utilsLeftPad(minutes, 2, '0'));
                 } else {
                     var seconds = (options.date.getSeconds() + 5) % 60;
                     options.date.setSeconds(seconds);
-                    timetable.$s.val(utils.leftPad(seconds, 2, '0'));
+                    timetable.$s.val(utilsLeftPad(seconds, 2, '0'));
                 }
                 input.select();
-                utils.applyFunc(picker, options.onDateUpdate, arguments, false);
+                utilsApplyFunc(picker, options.onDateUpdate, arguments, false);
             },
             /**
              * do time decrease
@@ -690,18 +688,18 @@
                 if (inputType === 'h') {
                     var hours = (options.date.getHours() + 23) % 24;
                     options.date.setHours(hours);
-                    timetable.$h.val(utils.leftPad(hours, 2, '0'));
+                    timetable.$h.val(utilsLeftPad(hours, 2, '0'));
                 } else if (inputType === 'm') {
                     var minutes = (options.date.getMinutes() + 55) % 60;
                     options.date.setMinutes(minutes);
-                    timetable.$m.val(utils.leftPad(minutes, 2, '0'));
+                    timetable.$m.val(utilsLeftPad(minutes, 2, '0'));
                 } else {
                     var seconds = (options.date.getSeconds() + 55) % 60;
                     options.date.setSeconds(seconds);
-                    timetable.$s.val(utils.leftPad(seconds, 2, '0'));
+                    timetable.$s.val(utilsLeftPad(seconds, 2, '0'));
                 }
                 input.select();
-                utils.applyFunc(picker, options.onDateUpdate, arguments, false);
+                utilsApplyFunc(picker, options.onDateUpdate, arguments, false);
             },
 
             /**
@@ -726,7 +724,7 @@
                         this.value = hours;
                     }
                     options.date.setHours(hours);
-                    utils.applyFunc(picker, options.onDateUpdate, arguments);
+                    utilsApplyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
                     $table.focus = $(this);
                 });
@@ -738,7 +736,7 @@
                         this.value = minutes;
                     }
                     options.date.setMinutes(minutes);
-                    utils.applyFunc(picker, options.onDateUpdate, arguments);
+                    utilsApplyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
                     $table.focus = $(this);
                 });
@@ -750,7 +748,7 @@
                         this.value = seconds;
                     }
                     options.date.setSeconds(seconds);
-                    utils.applyFunc(picker, options.onDateUpdate, arguments);
+                    utilsApplyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
                     $table.focus = $(this);
                 });
@@ -799,6 +797,7 @@
                     var $target = $(target).closest('td');
                     var type = event.type;
                     var navitype = $target.data('nav');
+                    var _arguments = arguments;
                     if ($target.data('disabled') || $target.length === 0 || !navitype) {
                         return;
                     }
@@ -814,13 +813,13 @@
                                 //previous month
                                 _toPrevMonth();
                                 _loadDateData($datetable, new Date(options.date));
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                                 break;
                             case NAV['nextm']:
                                 //next month
                                 _toNextMonth();
                                 _loadDateData($datetable, new Date(options.date));
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                                 break;
                             case NAV['title']:
                                 //click 'title' button to open YM panel
@@ -835,13 +834,13 @@
                                 //清空按钮
                                 options.date = null;
                                 cache.selectedDate && cache.selectedDate.removeClass('selected');
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
-                                utils.applyFunc(picker, options.onClear, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
+                                utilsApplyFunc(picker, options.onClear, _arguments);
                                 break;
                             case NAV['current']:
                                 //click 'current' button
                                 options.date = new Date();
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                             case NAV['today']:
                                 //click 'today' button
                                 var today = new Date();
@@ -853,30 +852,30 @@
                                     cache.selectedDate && cache.selectedDate.removeClass('selected');
                                     cache.selectedDate = $datetable.find('td.today').addClass('selected');
                                 }
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
-                                utils.applyFunc(picker, options.onToday, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
+                                utilsApplyFunc(picker, options.onToday, _arguments);
                                 break;
                             case NAV['dok']:
                                 //click 'ok' button on D panel
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
-                                utils.applyFunc(picker, options.onOk, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
+                                utilsApplyFunc(picker, options.onOk, _arguments);
                                 break;
                             case NAV['prevy']:
                                 //previous ten years
                                 _toPrevDecade();
                                 _loadMonthData($monthtable, new Date(options.date));
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                                 break;
                             case NAV['nexty']:
                                 //next ten years
                                 _toNextDecade();
                                 _loadMonthData($monthtable, new Date(options.date));
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                                 break;
                             case NAV['mok']:
                                 //click 'ok' button on YM panel
                                 _loadDateData($datetable, new Date(options.date));
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                                 if($datetable.parent().length > 0){
                                     $monthtable.hide("fast");
                                 }
@@ -893,14 +892,14 @@
                                 var date = options.date;
                                 date.setFullYear($target.text());
                                 _loadMonthData($monthtable, new Date(date));
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                                 break;
                             case NAV['month']:
                                 //choose one month
                                 cache.selectedMonth && cache.selectedMonth.removeClass('selected');
                                 cache.selectedMonth = $target.addClass('selected');
                                 options.date.setMonth($target.data('month'));
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                                 break;
                             case NAV['day']:
                                 //choose one day
@@ -910,9 +909,9 @@
                                 curDate.setFullYear(cache.showYear);
                                 curDate.setMonth(cache.showMonth);
                                 curDate.setDate($target.text());
-                                utils.applyFunc(picker, options.onDateUpdate, arguments);
+                                utilsApplyFunc(picker, options.onDateUpdate, _arguments);
                                 if(!$timetable.parent().length){
-                                    utils.applyFunc(picker, options.onClose, arguments);
+                                    utilsApplyFunc(picker, options.onClose, _arguments);
                                 }
                                 break;
                             case NAV['plus']:
@@ -996,7 +995,7 @@
             options.date = value;
         };
         picker.getText = function (format) {
-            return utils.date2str(this.getValue(), format?format:'yyyy/MM/dd HH:mm:ss');
+            return utilsDate2str(this.getValue(), format?format:'yyyy/MM/dd HH:mm:ss');
         };
         picker.destroy = function () {
             this.element.removeData('datetimepicker');
