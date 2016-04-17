@@ -64,17 +64,17 @@
   background-color: @color-background;
   .border-radius(4px);
   line-height: 0;
-  border: none;
+  overflow: hidden;
+  border: 1px solid @color-border;
   *{
     .box-sizing();
   }
   table{
+    width: 100%;
     border-collapse: separate;
     border-spacing: 2px;
     background-color: white;
     padding: 3px;
-    .border-radius(4px);
-    border: 1px solid @color-border;
     td{
       border: 0;
       text-align: center;
@@ -154,6 +154,9 @@
         appearance: textfield;
     }
   }
+  .buttonpane {
+    border-top: 1px solid @color-border;
+  }
   tbody td{
     &.hover{
       background-color: @color-date-hover-background;
@@ -173,11 +176,6 @@
     }
   }
   tfoot td{
-    &.split{
-      .border-radius(0);
-      height: 1px;
-      border-bottom: solid 1px @color-date-hover-border;
-    }
     &.hover{
       background-color: @color-date-hover-background;
       padding: 1px;

@@ -206,11 +206,11 @@
              * @returns {*} return td dom
              * @private
              */
-            _createCell = function (tr, text, colspan, nav, cls) {
+            _createCell = function ($tr, text, colspan, nav, cls) {
                 var $cell = $('<td/>')
-                    .attr('colSpan', colspan)
+                    .attr('colspan', colspan)
                     .html(text)
-                    .appendTo(tr);
+                    .appendTo($tr);
                 if (nav) {
                     $cell.data('nav', nav);
                 }
@@ -222,55 +222,43 @@
             /**
              * create D panel
              * @param options
-             * @returns {*|jQuery|HTMLElement}
+             * @returns {jQuery}
              * @private
              */
             _createDatePicker = function(){
-                var table = $('<table cellspacing = "2px" cellpadding = "0" class="dt"/>');
-                var thead = $('<thead/>').appendTo(table);
+                var $table = $('<table cellspacing = "2px" cellpadding = "0" class="dt"/>');
+                var $thead = $('<thead/>').appendTo($table);
                 //head
                 //head - tools
-                row = $('<tr class = "mainhead"/>');
+                $row = $('<tr class = "mainhead"/>');
                 //head - tools - next month
-                table.$prevm = _createCell(row, '<i class="icon-datepicker-prev"/>', 1, NAV['prevm'], "prevm");
+                $table.$prevm = _createCell($row, '<i class="icon-datepicker-prev"/>', 1, NAV['prevm'], "prevm");
                 //head - tools - title
-                table.$title = $('<td class="title" colspan="5"/>').data('nav',NAV['title']).appendTo(row);
+                $table.$title = $('<td class="title" colspan="5"/>').data('nav',NAV['title']).appendTo($row);
                 //head - tools - prev month
-                table.$nextm = _createCell(row, '<i class="icon-datepicker-next"/>', 1, NAV['nextm'], "nextm");
-                row.appendTo(thead);
+                $table.$nextm = _createCell($row, '<i class="icon-datepicker-next"/>', 1, NAV['nextm'], "nextm");
+                $row.appendTo($thead);
                 //head - week names
-                row = $('<tr/>');
+                $row = $('<tr/>');
                 var i;
                 for (i = 0; i < 7; ++i) {
-                    var $fdcell = $('<td/>').appendTo(row);
+                    var $fdcell = $('<td/>').appendTo($row);
                     var dd = ( i + firstDayOfWeek ) % 7;
                     $fdcell.addClass('day name').text(I18N.SDN[dd]);
                     if (dd === 0 || dd === 6) { //Saturday, Sunday
                         $fdcell.addClass("weekend");
                     }
                 }
-                row.appendTo(thead);
+                $row.appendTo($thead);
                 //body
-                var tbody = $('<tbody onselectstart="return false;"/>').appendTo(table);
+                var $tbody = $('<tbody onselectstart="return false;"/>').appendTo($table);
                 for (i = 6; i > 0; i--) {
-                    var bodyRow = $('<tr/>').appendTo(tbody);
+                    var $bodyRow = $('<tr/>').appendTo($tbody);
                     for (var t = 0; t < 7; t++) {
-                        $('<td/>').appendTo(bodyRow);
+                        $('<td/>').appendTo($bodyRow);
                     }
                 }
-                //foot
-                var tfoot = $('<tfoot/>').appendTo(table);
-                //separator
-                _createCell($('<tr/>').appendTo(tfoot), '', 7, null, 'split');
-                var row = $('<tr/>');
-                //foot - clear button
-                _createCell(row, I18N["CLEAR"], 2, NAV['clear'], 'clear');
-                //foot - today button
-                _createCell(row, I18N["TODAY"], 3, NAV['today'], 'today');
-                //foot - ok button
-                _createCell(row, I18N["OK"], 2, NAV['dok'], 'ok');
-                row.appendTo(tfoot);
-                return table;
+                return $table;
             },
 
             /**
@@ -278,29 +266,47 @@
              * @private
              */
             _createMonthPicker = function () {
-                var table = $('<table cellspacing = "2px" cellpadding = "0" class="mt"/>');
+                var $table = $('<table cellspacing = "2px" cellpadding = "0" class="mt"/>');
                 //tbody
-                var tbody = $('<tbody/>').appendTo(table);
+                var $tbody = $('<tbody/>').appendTo($table);
                 //tbody - tools
-                var row = $('<tr/>').appendTo(tbody);
+                var $row = $('<tr/>').appendTo($tbody);
                 for (var n = 0; n < 2; n++) {
-                    $('<td class="month"/>').appendTo(row);
+                    $('<td class="month"/>').appendTo($row);
                 }
                 //tbody - 翻年按钮
-                _createCell(row, '<i class="icon-datepicker-prev"/>', 1, NAV['prevy'], ' prevy');
-                _createCell(row, '<i class="icon-datepicker-next"/>', 1, NAV['nexty'], ' nexty');
+                _createCell($row, '<i class="icon-datepicker-prev"/>', 1, NAV['prevy'], ' prevy');
+                _createCell($row, '<i class="icon-datepicker-next"/>', 1, NAV['nexty'], ' nexty');
                 //tbody - years
                 for (var m = 0; m < 5; m++) {
-                    row = $('<tr/>').appendTo(tbody);
+                    $row = $('<tr/>').appendTo($tbody);
                     $('<td class="month"/><td class="month"/>' +
-                        '<td class="year"/><td class="year"/>').appendTo(row);
+                        '<td class="year"/><td class="year"/>').appendTo($row);
                 }
                 //foot - buttons
-                var tfoot = $('<tfoot/>').appendTo(table);
-                row = $('<tr/>').appendTo(tfoot);
+                var $tfoot = $('<tfoot class="buttonpane"/>').appendTo($table);
+                $row = $('<tr/>').appendTo($tfoot);
                 //tbody - 确定与取消
-                _createCell(row, I18N["OK"], 4, NAV['mok'], 'ok');
-                return table;
+                _createCell($row, I18N["OK"], 4, NAV['mok'], 'ok');
+                return $table;
+            },
+
+            /**
+             * Create a table containing the buttons.
+             * @return {jQuery}
+             * @private
+             */
+            _createButtonPane = function () {
+                var $buttonpane = $('<table class="buttonpane"/>');
+                var $row = $('<tr/>');
+                // clear button
+                _createCell($row, I18N["CLEAR"], null, NAV['clear'], 'clear');
+                // today button
+                _createCell($row, I18N["TODAY"], null, NAV['today'], 'today');
+                // ok button
+                _createCell($row, I18N["OK"], null, NAV['dok'], 'ok');
+                $row.appendTo($buttonpane);
+                return $buttonpane;
             },
 
             /**
@@ -603,7 +609,7 @@
                             cache.selectedYear = $ycell;
                         }
                         if ((!utils.isEmpty(minYear) && years[i] < minYear) || (!utils.isEmpty(maxYear) && years[i] > maxYear)) {
-                            $ycell.addClass("disabled").data('disabled', true)
+                            $ycell.addClass("disabled").data('disabled', true);
                         } else {
                             $ycell.removeClass("disabled").data('disabled', false);
                         }
@@ -693,9 +699,9 @@
              * create the time picker row containing the individual time input fields
              */
             _createTimePicker = function () {
-                var table = $('<table cellspacing = "0" cellpadding = "0" class="tt"/>');
-                var tbody = $('<tbody>').appendTo(table);
-                table.$h = $('<input type="number" min="0" max="23" maxlength="2"/>').data('time', 'h').change(function () {
+                var $table = $('<table cellspacing = "0" cellpadding = "0" class="tt"/>');
+                var $tbody = $('<tbody>').appendTo($table);
+                $table.$h = $('<input type="number" min="0" max="23" maxlength="2"/>').data('time', 'h').change(function () {
                     var value = parseInt(this.value, 10);
                     var hours = clampNumber(value, 0, 23);
                     // Replace the value if it has not been not a valid number
@@ -705,9 +711,9 @@
                     options.date.setHours(hours);
                     utils.applyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
-                    table.focus = $(this);
+                    $table.focus = $(this);
                 });
-                table.$m = $('<input type="number" min="0" max="59" maxlength="2"/>').data('time', 'm').change(function () {
+                $table.$m = $('<input type="number" min="0" max="59" maxlength="2"/>').data('time', 'm').change(function () {
                     var value = parseInt(this.value, 10);
                     var minutes = clampNumber(value, 0, 59);
                     // Replace the value if it has not been not a valid number
@@ -717,9 +723,9 @@
                     options.date.setMinutes(minutes);
                     utils.applyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
-                    table.focus = $(this);
+                    $table.focus = $(this);
                 });
-                table.$s = $('<input type="number" min="0" max="59" maxlength="2"/>').data('time', 's').change(function () {
+                $table.$s = $('<input type="number" min="0" max="59" maxlength="2"/>').data('time', 's').change(function () {
                     var value = parseInt(this.value, 10);
                     var seconds = clampNumber(value, 0, 59);
                     // Replace the value if it has not been not a valid number
@@ -729,21 +735,21 @@
                     options.date.setSeconds(seconds);
                     utils.applyFunc(picker, options.onDateUpdate, arguments);
                 }).focus(function () {
-                    table.focus = $(this);
+                    $table.focus = $(this);
                 });
-                table.focus = table.$s;
+                $table.focus = $table.$s;
                 var $add = $('<td/>').append($('<i class="icon-datepicker-plus"/>')).data('nav', NAV['plus']);
                 var $min = $('<td/>').append($('<i class="icon-datepicker-minus"/>')).data('nav', NAV['minus']);
                 $('<tr/>').append($('<td rowspan="2"/>').text(I18N.TIME))
-                    .append($('<td rowspan="2"/>').append(table.$h))
+                    .append($('<td rowspan="2"/>').append($table.$h))
                     .append($('<td class="common" rowspan="2"/>').text(':'))
-                    .append($('<td rowspan="2"/>').append(table.$m))
+                    .append($('<td rowspan="2"/>').append($table.$m))
                     .append($('<td class="common" rowspan="2"/>').text(':'))
-                    .append($('<td rowspan="2"/>').append(table.$s))
+                    .append($('<td rowspan="2"/>').append($table.$s))
                     .append($add)
-                    .appendTo(tbody);
-                $('<tr/>').append($min).appendTo(tbody);
-                return table;
+                    .appendTo($tbody);
+                $('<tr/>').append($min).appendTo($tbody);
+                return $table;
             },
 
             /**
@@ -751,16 +757,16 @@
              * @param timetable T panel DOM
              * @private
              */
-            _addTimeOptPane = function(timetable){
-                var $foot = $('<tfoot/>');
-                var $tr = $('<tr/>').appendTo($foot);
+            _addTimeOptPane = function($wrapper){
+                var $table = $('<table/>');
+                var $tr = $('<tr/>').appendTo($table);
                 //清空按钮
-                _createCell($tr, I18N["CLEAR"], 2, NAV['clear'], 'clear');
+                _createCell($tr, I18N["CLEAR"], 1, NAV['clear'], 'clear');
                 //当前按钮
-                _createCell($tr, I18N["CURRENT"], 3, NAV['current'], 'current');
+                _createCell($tr, I18N["CURRENT"], 1, NAV['current'], 'current');
                 //确认按钮
-                _createCell($tr, I18N["OK"], 2, NAV['dok'], 'ok');
-                $foot.appendTo(timetable);
+                _createCell($tr, I18N["OK"], 1, NAV['dok'], 'ok');
+                $table.appendTo($wrapper);
             },
             /**
              * bind events
@@ -918,26 +924,28 @@
         _loadDateData($datetable, new Date(options.date));
         $monthtable = _createMonthPicker();
         $timetable = _createTimePicker();
+        var $buttonpane = _createButtonPane();
         switch (options.viewMode) {
             case CONSTS.VIEWMODE.YM : // yyyyMM
                 _loadMonthData($monthtable, new Date(options.date));
-                $monthtable.appendTo($wrapper).show();
+                $wrapper.append($monthtable.show());
                 break;
             case CONSTS.VIEWMODE.HMS :   // HHmmss
                 _loadTimeData($timetable, options.date);
-                _addTimeOptPane($timetable);
-                $timetable.appendTo($wrapper).show();
+                $wrapper.append($timetable.show());
+                _addTimeOptPane($wrapper);
                 break;
             case CONSTS.VIEWMODE.YMD : //yyyyMMdd
-                $datetable.appendTo($wrapper).show();
+                $wrapper.append($datetable.show());
                 $monthtable.hide().appendTo($wrapper);
+                $wrapper.append($buttonpane);
                 break;
             default : // yyyyMMddHHmmss
                 $datetable.appendTo($wrapper).show();
                 $monthtable.hide().appendTo($wrapper);
-                var row = $('<tr/>').prependTo($datetable.find('tfoot'));
                 _loadTimeData($timetable, options.date);
-                $timetable.show().appendTo($('<td colspan="7"/>').appendTo(row));
+                $timetable.show().appendTo($wrapper);
+                $wrapper.append($buttonpane);
                 break;
         }
         _bindEvts();
