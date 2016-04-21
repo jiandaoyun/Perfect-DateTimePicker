@@ -992,7 +992,12 @@
 
         /** API **/
         picker.setValue = function (value) {
-            options.date = value;
+            if (value instanceof Date) {
+                options.date = value;
+                _loadDateData($datetable, value);
+                _loadMonthData($monthtable, value);
+                _loadTimeData($timetable, value, options.viewMode);
+            }
         };
         picker.getText = function (format) {
             return utilsDate2str(this.getValue(), format?format:'yyyy/MM/dd HH:mm:ss');
