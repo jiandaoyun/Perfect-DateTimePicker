@@ -635,10 +635,6 @@
                     return;
                 }
 
-                // Round minutes and seconds up to the next 5 dividable number.
-                date.setMinutes(date.getMinutes() + 5 - date.getMinutes() % 5);
-                date.setSeconds(date.getSeconds() + 5 - date.getSeconds() % 5);
-
                 // Reset seconds if they are not relevant.
                 if (viewmode == CONSTS.VIEWMODE.HM || viewmode == CONSTS.VIEWMODE.YMDHM) {
                   date.setSeconds(0);
