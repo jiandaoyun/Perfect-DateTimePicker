@@ -212,7 +212,6 @@
                 if (nav) {
                     $cell.data('nav', nav);
                 }
-                cls = cls ? 'btn ' + cls : 'btn';
                 $cell.addClass(cls);
                 return $cell;
             },
