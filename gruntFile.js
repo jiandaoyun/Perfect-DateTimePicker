@@ -1,22 +1,6 @@
 module.exports = function (grunt) {
     grunt.file.defaultEncoding = 'utf-8';
 
-    var jsDumpTasks = {
-        files: [{
-            // src
-            expand: true,
-            cwd: 'src',
-            src: '*.js',
-            dest: 'dist'
-        }, {
-            // lib
-            expand: true,
-            cwd: 'lib',
-            src: '*.js',
-            dest: 'dist'
-        }]
-    };
-
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
         // Delete generated files
@@ -33,9 +17,41 @@ module.exports = function (grunt) {
             },
         },
 
+        // Compress css
+        cssmin: {
+            target: {
+                files: [{
+                    expand: true,
+                    cwd: 'dist',
+                    src: ['*.css', '!*.min.css'],
+                    extDot: 'last',
+                    dest: 'dist',
+                    ext: '.min.css'
+                }]
+            }
+        },
+
         // Compress javascript
         uglify: {
-            product: jsDumpTasks
+            product: {
+                files: [{
+                    // src
+                    expand: true,
+                    cwd: 'src',
+                    extDot: 'last',
+                    src: '*.js',
+                    dest: 'dist',
+                    ext: '.min.js'
+                }, {
+                    // lib
+                    expand: true,
+                    cwd: 'lib',
+                    extDot: 'last',
+                    src: '*.js',
+                    dest: 'dist',
+                    ext: '.min.js'
+                }]
+            }
         }
     });
 
@@ -52,6 +68,7 @@ module.exports = function (grunt) {
     grunt.registerTask('default', [
         'clean:all',
         'less:compile',
+        'cssmin',
         'uglify:product'
     ]);
 };
