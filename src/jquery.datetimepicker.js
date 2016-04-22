@@ -443,7 +443,7 @@
             /**
              * load data on D panel
              * @param table {$} DOM
-             * @param date ｛Date｝current date
+             * @param date {Date} current date
              * @private
              */
             _loadDateData = function (table, date) {
@@ -844,6 +844,8 @@
                                     return;
                                 }else{
                                     options.date = today;
+                                    _loadDateData($datetable, today);
+                                    _loadTimeData($timetable, today);
                                     cache.selectedDate && cache.selectedDate.removeClass('selected');
                                     cache.selectedDate = $datetable.find('td.today').addClass('selected');
                                 }
