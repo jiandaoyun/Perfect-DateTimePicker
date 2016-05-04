@@ -819,9 +819,13 @@
                             case NAV['title']:
                                 //click 'title' button to open YM panel
                                 _loadMonthData($monthtable, new Date(cache.showYear, cache.showMonth));
+                                var $parent = $monthtable.parent('.perfect-datetimepicker');
                                 $monthtable.css({
                                     position: 'absolute',
                                     top: 0,
+                                    left: 0,
+                                    height: $parent.height(),
+                                    width: $parent.width(),
                                     'z-index': 100000
                                 }).show("fast");
                                 break;
