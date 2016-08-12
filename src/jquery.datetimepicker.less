@@ -127,6 +127,9 @@
       outline: none;
       border: 1px solid #cccccc;
       margin: 0 auto;
+      // Make sure that there is no padding even if the website styles define it.
+      // Otherwise, the digits might not be visible in case of large padding.
+      padding: 0 !important;
       overflow: hidden;
       .size(38px, 24px);
       text-align: center;
