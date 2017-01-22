@@ -14,7 +14,7 @@ module.exports = function (grunt) {
         less: {
             compile: {
                 files: {'dist/jquery.datetimepicker.css': 'src/jquery.datetimepicker.less'}
-            },
+            }
         },
 
         // Compress css
