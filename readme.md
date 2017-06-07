@@ -5,12 +5,12 @@
 
 **Demo:** [http://finexs.github.io/Perfect-DateTimePicker](http://finexs.github.io/Perfect-DateTimePicker)
 
-###Features(特性)
+### Features(特性)
 0. Simple Interaction.(交互简单)
 0. Concise Interface.(界面整洁)
 0. Bootstrap Style.(类Bootstrap风格)
 
-###Preview(预览图)
+### Preview(预览图)
 ![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/1.png)
 ![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/2.png)
 ![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/3.png)
@@ -19,7 +19,7 @@
 ![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/6.png)
 ![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/7.png)
 
-###API(接口)
+### API(接口)
 
 * options(属性配置)
 
@@ -52,7 +52,7 @@
 <tr><td>$timetable</td><td>Object</td><td>无</td><td>返回时间选择面板的jQuery对象</td></tr>
 </table>
 
-###Example(代码示例)
+### Example(代码示例)
 
 ```javascript
     var picker = $('#demo1').datetimepicker({
@@ -71,9 +71,9 @@
     picker.element.hide();
 ```
 
-###Compatible(浏览器兼容性)
+### Compatible(浏览器兼容性)
 IE8+
 
-###License(协议)
+### License(协议)
 [MIT license](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/LICENSE)
 
