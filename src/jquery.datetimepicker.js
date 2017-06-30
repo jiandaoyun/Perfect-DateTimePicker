@@ -847,7 +847,7 @@
                                     (options.endDate && today>options.endDate)){
                                     return;
                                 }else{
-                                    options.date = today;
+                                    options.date = new Date(today);
                                     _loadDateData($datetable, today);
                                     _loadTimeData($timetable, today);
                                     cache.selectedDate && cache.selectedDate.removeClass('selected');
