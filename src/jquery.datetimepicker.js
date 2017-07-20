@@ -1073,6 +1073,9 @@
             this.element.remove();
             return picker;
         };
+
+        // Call the onDisplayUpdate initially after the picker has been initialized
+        utilsApplyFunc(picker, options.onDisplayUpdate);
         return picker;
     }
 
