@@ -1037,6 +1037,7 @@
         picker.$datetable = $datetable;
         picker.$monthtable = $monthtable;
         picker.$timetable = $timetable;
+        picker.$buttonpane = $buttonpane;
         picker.getValue = function(){
             var viewMode = CONSTS.VIEWMODE;
             var date = selectedDate;
