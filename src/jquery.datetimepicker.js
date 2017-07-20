@@ -24,6 +24,9 @@
                 showYear: null,
                 showMonth: null
             },
+            cloneDate = function (date) {
+                return new Date(date.getTime());
+            },
             // The date which is used to generate the picker ui
             displayDate = (options.date instanceof Date) ? cloneDate(options.date) : new Date(),
             // The date/time which has been selected by the user
@@ -33,9 +36,6 @@
             $datetable, //D(date) panel
             $monthtable, //YM(year and month) panel
             $timetable, //T(time) panel
-            cloneDate = function (date) {
-                return new Date(date.getTime());
-            }
 
             /**
              * calculate thu number of days in one month
@@ -508,12 +508,12 @@
                         iday = date.getDate();
                         $cell.text(iday);
                         var current_month = (date.getMonth() == month);
-                        if (!current_month) {
-                            $cell.addClass('oday').data('disabled',true);
-                            continue;
-                        }
                         var disabled = false;
-                        if ((std != null && std > date) || (edd != null && edd < date)) {
+
+                        if (!current_month) {
+                            $cell.addClass('oday');
+                        }
+                        else if ((std != null && std > date) || (edd != null && edd < date)) {
                             //out of date range
                             $cell.addClass('day disabled');
                             disabled = true;
@@ -939,12 +939,33 @@
                                 utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['day']:
+                                var day = parseInt($target.text(), 10);
+                                if ($target.hasClass('oday')) {
+                                    if (day < 15) {
+                                        // switch to next month
+                                        _toNextMonth();
+                                        displayDate.setDate(day);
+                                        _loadDateData($datetable, displayDate);
+                                        utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
+                                    }
+                                    else {
+                                        // switch to previous month
+                                        _toPrevMonth();
+                                        displayDate.setDate(day);
+                                        _loadDateData($datetable, displayDate);
+                                        utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
+                                    }
+                                    // determine new "target" cell
+                                    $target = $target.closest('table').find('td.day').filter(function() {
+                                        return ($(this).text() == day);
+                                    });
+                                }
                                 //choose one day
                                 cache.selectedDate && cache.selectedDate.removeClass('selected');
                                 cache.selectedDate = $target.addClass('selected');
                                 displayDate.setFullYear(cache.showYear);
                                 displayDate.setMonth(cache.showMonth);
-                                displayDate.setDate($target.text());
+                                displayDate.setDate(day);
                                 _setSelectedDate(displayDate);
                                 if(!$timetable.parent().length){
                                     utilsApplyFunc(picker, options.onClose, _arguments);

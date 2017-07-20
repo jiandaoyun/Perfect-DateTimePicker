@@ -190,27 +190,31 @@
                 //date: new Date(),
                 viewMode: 'YMDHMS',
                 onDisplayUpdate: function() {
-                  logEvent('onDisplayUpdate', this.getDisplayDate());
+                    logEvent('onDisplayUpdate', this.getDisplayDate());
                 },
                 //date selection event
                 onDateChange: function() {
-                  logEvent('onDateChange', this.getValue());
+                    logEvent('onDateChange', this.getValue());
+
+                    $('#date-text1-1').text(this.getText());
+                    $('#date-text-ymd1-1').text(this.getText('yyyy-MM-dd'));
+                    $('#date-value1-1').text(this.getValue());
                 },
                 //clear button click event
                 onClear: function() {
-                  logEvent('onClear', this.getValue());
+                    logEvent('onClear', this.getValue());
                 },
                 //ok button click event
                 onOk: function() {
-                  logEvent('onOk', this.getValue());
+                    logEvent('onOk', this.getValue());
                 },
                 //close button click event
                 onClose: function() {
-                  logEvent('onClose', this.getValue());
+                    logEvent('onClose', this.getValue());
                 },
                 //today button click event
                 onToday: function() {
-                  logEvent('onToday', this.getValue());
+                    logEvent('onToday', this.getValue());
                 },
             });
             $('#demo1-2').datetimepicker({
