@@ -912,7 +912,7 @@
                                 //click 'ok' button on YM panel
                                 _loadDateData($datetable, displayDate);
                                 utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
-                                if($datetable.parent().length > 0){
+                                if (options.viewMode !== VIEWMODE.YM) {
                                     $monthtable.hide("fast");
                                 }
                                 break;
@@ -923,23 +923,43 @@
                                 break;
                             case NAV['year']:
                                 //choose one year
+                                var selectedYear = parseInt($target.text(), 10);
+                                // Do nothing if the currently selected year has been chosen
+                                if (displayDate.getFullYear() === selectedYear) {
+                                    return;
+                                }
                                 cache.selectedYear && cache.selectedYear.removeClass('selected');
                                 cache.selectedYear = $target;
-                                displayDate.setFullYear($target.text());
-                                _setSelectedDate(displayDate);
+                                displayDate.setFullYear(selectedYear);
+                                // Only update the selection if the picker is not a date and/or time picker
+                                if (options.viewMode === VIEWMODE.YM) {
+                                    _setSelectedDate(displayDate);
+                                }
                                 _loadMonthData($monthtable, displayDate);
                                 utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['month']:
                                 //choose one month
+                                var selectedMonth = parseInt($target.data('month'), 10);
+                                // Do nothing if the currently selected month has been chosen
+                                if (displayDate.getMonth() === selectedMonth) {
+                                    return;
+                                }
                                 cache.selectedMonth && cache.selectedMonth.removeClass('selected');
                                 cache.selectedMonth = $target.addClass('selected');
-                                displayDate.setMonth($target.data('month'));
-                                _setSelectedDate(displayDate);
+                                displayDate.setMonth(selectedMonth);
+                                // Only update the selection if the picker is not a date and/or time picker
+                                if (options.viewMode === VIEWMODE.YM) {
+                                    _setSelectedDate(displayDate);
+                                }
                                 utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['day']:
                                 var day = parseInt($target.text(), 10);
+                                // Do nothing if the currently selected day has been chosen
+                                if (displayDate.getDate() === day) {
+                                    return;
+                                }
                                 if ($target.hasClass('oday')) {
                                     if (day < 15) {
                                         // switch to next month
@@ -967,9 +987,6 @@
                                 displayDate.setMonth(cache.showMonth);
                                 displayDate.setDate(day);
                                 _setSelectedDate(displayDate);
-                                if(!$timetable.parent().length){
-                                    utilsApplyFunc(picker, options.onClose, _arguments);
-                                }
                                 break;
                             case NAV['plus']:
                                 //plus time
