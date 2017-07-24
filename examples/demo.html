@@ -13,6 +13,9 @@
         }
         .log-wrapper {
             float: right;
+            min-width: 20em;
+            min-height: 5em;
+            background: #eee;
         }
         .log {
             max-height: 300px;
@@ -46,8 +49,8 @@
         </div>
         <div class="log-wrapper">
             <strong>Triggered events</strong>
-            <button id="clearlog">clear</button>
-            <div id="eventlog" class="log"></div>
+            <button id="clearlog1">clear</button>
+            <div id="eventlog1" class="log"></div>
         </div>
         <div id="demo1-1"></div>
 
@@ -100,6 +103,12 @@
         <div>
             <span>getValue(): </span>
             <span id="date-value3"></span>
+        </div>
+
+        <div class="log-wrapper">
+            <strong>Triggered events</strong>
+            <button id="clearlog3">clear</button>
+            <div id="eventlog3" class="log"></div>
         </div>
         <div id="demo3"></div>
 
@@ -179,22 +188,19 @@
     <script type="text/javascript" src="../src/jquery.datetimepicker.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            function logEvent(type, date) {
-                $("<div class='log__entry'/>").hide().html("<strong>"+type + "</strong>: "+date).prependTo($('#eventlog')).show(200);
+            function logEvent(containerId, type, date) {
+                $("<div class='log__entry'/>").hide().html("<strong>"+type + "</strong>: "+date).prependTo($(containerId)).show(200);
             }
-            $('#clearlog').click(function() {
-                $('#eventlog').html('');
-            });
 
             $('#demo1-1').datetimepicker({
                 //date: new Date(),
                 viewMode: 'YMDHMS',
                 onDisplayUpdate: function() {
-                    logEvent('onDisplayUpdate', this.getDisplayDate());
+                    logEvent('#eventlog1', 'onDisplayUpdate', this.getDisplayDate());
                 },
                 //date selection event
                 onDateChange: function() {
-                    logEvent('onDateChange', this.getValue());
+                    logEvent('#eventlog1', 'onDateChange', this.getValue());
 
                     $('#date-text1-1').text(this.getText());
                     $('#date-text-ymd1-1').text(this.getText('yyyy-MM-dd'));
@@ -202,21 +208,26 @@
                 },
                 //clear button click event
                 onClear: function() {
-                    logEvent('onClear', this.getValue());
+                    logEvent('#eventlog1', 'onClear', this.getValue());
                 },
                 //ok button click event
                 onOk: function() {
-                    logEvent('onOk', this.getValue());
+                    logEvent('#eventlog1', 'onOk', this.getValue());
                 },
                 //close button click event
                 onClose: function() {
-                    logEvent('onClose', this.getValue());
+                    logEvent('#eventlog1', 'onClose', this.getValue());
                 },
                 //today button click event
                 onToday: function() {
-                    logEvent('onToday', this.getValue());
-                },
+                    logEvent('#eventlog1', 'onToday', this.getValue());
+                }
             });
+            $('#clearlog1').click(function() {
+                $('#eventlog1').html('');
+            });
+
+
             $('#demo1-2').datetimepicker({
                 date: new Date(),
                 viewMode: 'YMDHM',
@@ -238,12 +249,26 @@
             $('#demo3').datetimepicker({
                 date: new Date(),
                 viewMode: 'YM',
-                onDateChange: function(){
+                onDisplayUpdate: function() {
+                    logEvent('#eventlog3', 'onDisplayUpdate', this.getDisplayDate());
+                },
+                //date selection event
+                onDateChange: function() {
+                    logEvent('#eventlog3', 'onDateChange', this.getValue());
+
                     $('#date-text3').text(this.getText());
                     $('#date-text-ymd3').text(this.getText('yyyy-MM-dd'));
                     $('#date-value3').text(this.getValue());
-                }
+                },
+                //ok button click event
+                onOk: function() {
+                    logEvent('#eventlog3', 'onOk', this.getValue());
+                },
             });
+            $('#clearlog3').click(function() {
+                $('#eventlog3').html('');
+            });
+
             $('#demo4-1').datetimepicker({
                 date: new Date(),
                 viewMode: 'HMS',
