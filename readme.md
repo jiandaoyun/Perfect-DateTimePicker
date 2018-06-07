@@ -11,13 +11,13 @@
 0. Bootstrap Style.(类Bootstrap风格)
 
 ### Preview(预览图)
-![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/1.png)
-![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/2.png)
-![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/3.png)
-![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/4.png)
-![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/5.png)
-![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/6.png)
-![](https://rawgit.com/FineXs/Perfect-DateTimePicker/master/examples/7.png)
+![](https://rawgit.com/jiandaoyun/Perfect-DateTimePicker/master/examples/1.png)
+![](https://rawgit.com/jiandaoyun/Perfect-DateTimePicker/master/examples/2.png)
+![](https://rawgit.com/jiandaoyun/Perfect-DateTimePicker/master/examples/3.png)
+![](https://rawgit.com/jiandaoyun/Perfect-DateTimePicker/master/examples/4.png)
+![](https://rawgit.com/jiandaoyun/Perfect-DateTimePicker/master/examples/5.png)
+![](https://rawgit.com/jiandaoyun/Perfect-DateTimePicker/master/examples/6.png)
+![](https://rawgit.com/jiandaoyun/Perfect-DateTimePicker/master/examples/7.png)
 
 ### API(接口)
 
@@ -75,5 +75,5 @@
 IE8+
 
 ### License(协议)
-[MIT license](https://github.com/FineXs/Perfect-DateTimePicker/blob/master/LICENSE)
+[MIT license](https://github.com/jiandaoyun/Perfect-DateTimePicker/blob/master/LICENSE)
 
