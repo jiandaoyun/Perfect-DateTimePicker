@@ -32,7 +32,7 @@
 <tr><td>endDate</td><td>Date</td><td>end date(结束日期)</td></tr>
 <tr><td>date</td><td>Date</td><td>initial date(初始值)</td></tr>
 <tr><td>firstDayOfWeek</td><td>Number</td><td>the first Day Of Week,0~6:Sunday~Saturday,default:0(指定每周的第一天，默认周日)</td></tr>
-<tr><td>onDateUpdate</td><td>Function</td><td>date update event(日期更新事件)</td></tr>
+<tr><td>onDateChange</td><td>Function</td><td>date change event(日期修改事件)</td></tr>
 <tr><td>onClear</td><td>Function</td><td>clear button click event(清除按钮事件)</td></tr>
 <tr><td>onOk</td><td>Function</td><td>ok button click event(确认按钮事件)</td></tr>
 <tr><td>onClose</td><td>Function</td><td>close button click event(关闭按钮事件)</td></tr>
@@ -59,7 +59,7 @@
         date: new Date(),
         viewMode: 'YMDHMS',
         firstDayOfWeek: 0,
-        onDateUpdate: function(){
+        onDateChange: function(){
             $('#date-text').text(this.getText());
         },
         onClose: function(){

@@ -838,13 +838,11 @@
                                 //previous month
                                 _toPrevMonth();
                                 _loadDateData($datetable, displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['nextm']:
                                 //next month
                                 _toNextMonth();
                                 _loadDateData($datetable, displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['title']:
                                 //click 'title' button to open YM panel
@@ -865,7 +863,6 @@
                                 cache.selectedDate && cache.selectedDate.removeClass('selected');
                                 _setSelectedDate(displayDate);
                                 _loadTimeData($timetable, null);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 utilsApplyFunc(picker, options.onClear, _arguments);
                                 break;
                             case NAV['current']:
@@ -873,7 +870,6 @@
                                 displayDate = new Date();
                                 selectedDate = displayDate;
                                 _setSelectedDate(displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 utilsApplyFunc(picker, options.onClear, _arguments);
                             case NAV['today']:
                                 //click 'today' button
@@ -889,7 +885,6 @@
                                     cache.selectedDate = $datetable.find('td.today').addClass('selected');
                                 }
                                 _setSelectedDate(displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 utilsApplyFunc(picker, options.onToday, _arguments);
                                 break;
                             case NAV['dok']:
@@ -900,18 +895,15 @@
                                 //previous ten years
                                 _toPrevDecade();
                                 _loadMonthData($monthtable, displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['nexty']:
                                 //next ten years
                                 _toNextDecade();
                                 _loadMonthData($monthtable, displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['mok']:
                                 //click 'ok' button on YM panel
                                 _loadDateData($datetable, displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 if($datetable.parent().length > 0){
                                     $monthtable.hide("fast");
                                 }
@@ -928,7 +920,6 @@
                                 displayDate.setFullYear($target.text());
                                 _setSelectedDate(displayDate);
                                 _loadMonthData($monthtable, displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['month']:
                                 //choose one month
@@ -936,7 +927,6 @@
                                 cache.selectedMonth = $target.addClass('selected');
                                 displayDate.setMonth($target.data('month'));
                                 _setSelectedDate(displayDate);
-                                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                 break;
                             case NAV['day']:
                                 var day = parseInt($target.text(), 10);
@@ -946,14 +936,12 @@
                                         _toNextMonth();
                                         displayDate.setDate(day);
                                         _loadDateData($datetable, displayDate);
-                                        utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                     }
                                     else {
                                         // switch to previous month
                                         _toPrevMonth();
                                         displayDate.setDate(day);
                                         _loadDateData($datetable, displayDate);
-                                        utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                                     }
                                     // determine new "target" cell
                                     $target = $target.closest('table').find('td.day').filter(function() {
@@ -1056,7 +1044,6 @@
             if (value instanceof Date) {
                 displayDate = value;
                 _setSelectedDate(value);
-                utilsApplyFunc(picker, options.onDisplayUpdate, _arguments);
                 _loadDateData($datetable, value);
                 _loadMonthData($monthtable, value);
                 _loadTimeData($timetable, value, options.viewMode);
@@ -1135,6 +1122,17 @@
                 OK: "OK",
                 CURRENT: "Jetzt",
                 TIME: "Zeit"
+            },
+            nl: {
+                SDN: ["Zo", "Ma", "Di", "Wo", "Do", "Vr", "Za"],
+                MN: ["Jan", "Feb", "Mrt", "Apr", "Mei", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dec"],
+                DN: ["Zondag", "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag"],
+                CALENDAR: "Kalender",
+                CLEAR: "Legen",
+                TODAY: "Vandaag",
+                OK: "OK",
+                CURRENT: "Nu",
+                TIME: "Tijd"
             }
         },
 
@@ -1182,8 +1180,6 @@
         endDate: null, //end date
         startDate: null, //start date
         language: 'en', //I18N
-        //date ui update event
-        onDisplayUpdate: null,
         //date selection event
         onDateChange: null,
         //clear button click event

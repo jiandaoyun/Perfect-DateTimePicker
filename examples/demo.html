@@ -189,9 +189,6 @@
             $('#demo1-1').datetimepicker({
                 //date: new Date(),
                 viewMode: 'YMDHMS',
-                onDisplayUpdate: function() {
-                    logEvent('onDisplayUpdate', this.getDisplayDate());
-                },
                 //date selection event
                 onDateChange: function() {
                     logEvent('onDateChange', this.getValue());
