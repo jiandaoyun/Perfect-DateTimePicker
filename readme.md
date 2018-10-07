@@ -44,7 +44,7 @@
 <table>
 <tr><td><b>function(方法)</b></td><td><b>type(类型)</b></td><td><b>parameters(参数)</b></td><td><b>description(描述)</b></td></tr>
 <tr><td>getValue</td><td>Function</td><td>无</td><td>获取当前日期对象</td></tr>
-<tr><td>getText</td><td>Function</td><td>format(可选，日期格式，例如: 'yyyy-MM-dd HH:mm:ss')</td><td>获取当前日期的文本格式</td></tr>
+<tr><td>getText</td><td>Function</td><td>format(可选，日期格式，例如: 'YYYY-MM-DD HH:mm:ss')</td><td>获取当前日期的文本格式</td></tr>
 <tr><td>destroy</td><td>Function</td><td>无</td><td>销毁对象</td></tr>
 <tr><td>element</td><td>Object</td><td>无</td><td>返回选择器的jQuery对象</td></tr>
 <tr><td>$datetable</td><td>Object</td><td>无</td><td>返回日期选择面板的jQuery对象</td></tr>

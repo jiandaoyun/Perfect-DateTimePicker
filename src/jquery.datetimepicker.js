@@ -95,10 +95,7 @@
             _compileDateFormat = function (format, date) {
                 var str = format.str, len = format.len, ch = format['char'];
                 switch(ch){
-                    case 'E': //星期
-                        str = CONSTS.DN[date.getDay()];
-                        break;
-                    case 'y': //年
+                    case 'Y': //年
                         if(len <= 3){
                             str = (date.getFullYear()+'').slice(2,4);
                         }else{
@@ -114,7 +111,7 @@
                             str = utilsLeftPad(date.getMonth() + 1, 2,'0');
                         }
                         break;
-                    case 'd': //日
+                    case 'D': //日
                         if(len > 1){
                             str = utilsLeftPad(date.getDate(), 2,'0');
                         }else{
@@ -153,9 +150,6 @@
                             str = date.getSeconds();
                         }
                         break;
-                    case 'a':
-                        str = date.getHours() < 12 ? 'am' : 'pm';
-                        break;
                     default:
                         str = format.str;
                         break;
@@ -165,7 +159,7 @@
 
             /**
              * 日期对象按照指定格式转化成字符串
-             * e.g. Thu Dec 12 2013 00:00:00 GMT+0800 + 'yyyy-MM-dd' --> '2013-12-12'
+             * e.g. Thu Dec 12 2013 00:00:00 GMT+0800 + 'YYYY-MM-DD' --> '2013-12-12'
              * @param {Date} date 日期对象
              * @param {String} format 日期格式
              * @return {String} 返回日期字符串
@@ -225,7 +219,6 @@
 
             /**
              * create D panel
-             * @param options
              * @returns {jQuery}
              * @private
              */
@@ -1052,7 +1045,7 @@
             }
         };
         picker.getText = function (format) {
-            return utilsDate2str(this.getValue(), format?format:'yyyy/MM/dd HH:mm:ss');
+            return utilsDate2str(this.getValue(), format?format:'YYYY/MM/DD HH:mm:ss');
         };
         picker.destroy = function () {
             this.element.removeData('datetimepicker');
