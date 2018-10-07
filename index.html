@@ -19,59 +19,77 @@
             $('#demo1').datetimepicker({
                 date: new Date(),
                 viewMode: 'YMDHMS',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
+                onDateChange: function(){
+                    $('#date-text-1').text(this.getText());
+                    $('#date-text-ymd-1').text(this.getText('YYYY-MM-DD'));
+                    $('#date-value-1').text(this.getValue());
                 }
             });
             $('#demo2').datetimepicker({
                 date: new Date(),
                 viewMode: 'YMD',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
+                onDateChange: function(){
+                    $('#date-text-2').text(this.getText());
+                    $('#date-text-ymd-2').text(this.getText('YYYY-MM-DD'));
+                    $('#date-value-2').text(this.getValue());
                 }
             });
             $('#demo3').datetimepicker({
                 date: new Date(),
                 viewMode: 'YM',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
+                onDateChange: function(){
+                    $('#date-text-3').text(this.getText());
+                    $('#date-text-ymd-3').text(this.getText('YYYY-MM-DD'));
+                    $('#date-value-3').text(this.getValue());
                 }
             });
             $('#demo4').datetimepicker({
                 date: new Date(),
                 viewMode: 'HMS',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
+                onDateChange: function(){
+                    $('#date-text-4').text(this.getText());
+                    $('#date-text-ymd-4').text(this.getText('YYYY-MM-DD'));
+                    $('#date-value-4').text(this.getValue());
                 }
             });
             $('#demo5').datetimepicker({
-                date: new Date(),
+                date: new Date(2015, 1, 2),
                 startDate: new Date(2015, 1, 1,0 ,0 ,0),
                 endDate: new Date(2015, 10 ,1 ,23 ,59 ,59),
                 viewMode: 'YMDHMS',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
+                onDateChange: function(){
+                    $('#date-text-5').text(this.getText());
+                    $('#date-text-ymd-5').text(this.getText('YYYY-MM-DD'));
+                    $('#date-value-5').text(this.getValue());
                 }
             });
             $('#demo6').datetimepicker({
                 date: new Date(),
                 firstDayOfWeek: 1,
                 viewMode: 'YMDHMS',
-                onDateUpdate: function(){
-                    $('#date-text').text(this.getText());
-                    $('#date-text-ymd').text(this.getText('yyyy-MM-dd'));
-                    $('#date-value').text(this.getValue());
+                onDateChange: function(){
+                    $('#date-text-6').text(this.getText());
+                    $('#date-text-ymd-6').text(this.getText('YYYY-MM-DD'));
+                    $('#date-value-6').text(this.getValue());
                 }
+            });
+            var $d7input = $('input', '#demo7').focus(function() {
+                $('.dropdown', '#demo7').remove();
+                var $dropdown = $('<div class="dropdown"/>')
+                    .appendTo('#demo7');
+                setTimeout(function(){
+                    $dropdown.datetimepicker({
+                        date: $d7input.data('value') || new Date(),
+                        viewMode: 'YMD',
+                        onDateChange: function(){
+                            debugger;
+                            $d7input.val(this.getText('YYYY-MM-DD'));
+                            $d7input.data('value', this.getValue());
+                            $dropdown.remove();
+                        }
+                    })
+                }, 100);
+
             });
         });
     </script>
@@ -98,7 +116,7 @@
                 <span id="date-text"></span>
             </div>
             <div>
-                <span>getText('yyyy-MM-dd'): </span>
+                <span>getText('YYYY-MM-DD'): </span>
                 <span id="date-text-ymd"></span>
             </div>
             <div>
@@ -106,26 +124,98 @@
                 <span id="date-value"></span>
             </div>
             <div id="demo1"></div>
+
             <h2>Demo2</h2>
             <hr>
             <h3>年月日格式(yyyyMMdd)</h3>
+            <div>
+                <span>getText(): </span>
+                <span id="date-text-2"></span>
+            </div>
+            <div>
+                <span>getText('YYYY-MM-DD'): </span>
+                <span id="date-text-ymd-2"></span>
+            </div>
+            <div>
+                <span>getValue(): </span>
+                <span id="date-value-2"></span>
+            </div>
             <div id="demo2"></div>
+
             <h2>Demo3</h2>
             <hr>
             <h3>年月格式(yyyyMM)</h3>
+            <div>
+                <span>getText(): </span>
+                <span id="date-text-3"></span>
+            </div>
+            <div>
+                <span>getText('YYYY-MM-DD'): </span>
+                <span id="date-text-ymd-3"></span>
+            </div>
+            <div>
+                <span>getValue(): </span>
+                <span id="date-value-3"></span>
+            </div>
             <div id="demo3"></div>
+
             <h2>Demo4</h2>
             <hr>
             <h3>时间格式(HHmmss)</h3>
+            <div>
+                <span>getText(): </span>
+                <span id="date-text-4"></span>
+            </div>
+            <div>
+                <span>getText('YYYY-MM-DD'): </span>
+                <span id="date-text-ymd-4"></span>
+            </div>
+            <div>
+                <span>getValue(): </span>
+                <span id="date-value-4"></span>
+            </div>
             <div id="demo4"></div>
+
             <h2>Demo5</h2>
             <hr>
             <h3>起始日期~结束日期(date range)</h3>
+            <div>
+                <span>getText(): </span>
+                <span id="date-text-5"></span>
+            </div>
+            <div>
+                <span>getText('YYYY-MM-DD'): </span>
+                <span id="date-text-ymd-5"></span>
+            </div>
+            <div>
+                <span>getValue(): </span>
+                <span id="date-value-5"></span>
+            </div>
             <div id="demo5"></div>
+
             <h2>Demo6</h2>
             <hr>
             <h3>设置每周的第一天(the first day Of week: 1(Monday))</h3>
+            <div>
+                <span>getText(): </span>
+                <span id="date-text-6"></span>
+            </div>
+            <div>
+                <span>getText('YYYY-MM-DD'): </span>
+                <span id="date-text-ymd-6"></span>
+            </div>
+            <div>
+                <span>getValue(): </span>
+                <span id="date-value-6"></span>
+            </div>
             <div id="demo6"></div>
+
+            <h2>Demo7</h2>
+            <hr>
+            <h3>和input配合使用(work with input)</h3>
+            <div id="demo7">
+                <input/>
+            </div>
         </section>
 
         <aside id="sidebar">
