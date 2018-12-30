@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="../dist/jquery.datetimepicker.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../dist/jquery.datetimepicker.css"/>
     <style type="text/css">
         #wrapper{
             width: 780px;
@@ -37,7 +37,7 @@
             <span id="date-text1-1"></span>
         </div>
         <div>
-            <span>getText('yyyy-MM-dd'): </span>
+            <span>getText('YYYY-MM-DD'): </span>
             <span id="date-text-ymd1-1"></span>
         </div>
         <div>
@@ -58,7 +58,7 @@
             <span id="date-text1-2"></span>
         </div>
         <div>
-            <span>getText('yyyy-MM-dd'): </span>
+            <span>getText('YYYY-MM-DD'): </span>
             <span id="date-text-ymd1-2"></span>
         </div>
         <div>
@@ -76,7 +76,7 @@
             <span id="date-text2"></span>
         </div>
         <div>
-            <span>getText('yyyy-MM-dd'): </span>
+            <span>getText('YYYY-MM-DD'): </span>
             <span id="date-text-ymd2"></span>
         </div>
         <div>
@@ -94,7 +94,7 @@
             <span id="date-text3"></span>
         </div>
         <div>
-            <span>getText('yyyy-MM-dd'): </span>
+            <span>getText('YYYY-MM-DD'): </span>
             <span id="date-text-ymd3"></span>
         </div>
         <div>
@@ -112,7 +112,7 @@
             <span id="date-text4-1"></span>
         </div>
         <div>
-            <span>getText('yyyy-MM-dd'): </span>
+            <span>getText('YYYY-MM-DD'): </span>
             <span id="date-text-ymd4-1"></span>
         </div>
         <div>
@@ -129,7 +129,7 @@
             <span id="date-text4-2"></span>
         </div>
         <div>
-            <span>getText('yyyy-MM-dd'): </span>
+            <span>getText('YYYY-MM-DD'): </span>
             <span id="date-text-ymd4-2"></span>
         </div>
         <div>
@@ -147,7 +147,7 @@
             <span id="date-text5"></span>
         </div>
         <div>
-            <span>getText('yyyy-MM-dd'): </span>
+            <span>getText('YYYY-MM-DD'): </span>
             <span id="date-text-ymd5"></span>
         </div>
         <div>
@@ -165,7 +165,7 @@
             <span id="date-text6"></span>
         </div>
         <div>
-            <span>getText('yyyy-MM-dd'): </span>
+            <span>getText('YYYY-MM-DD'): </span>
             <span id="date-text-ymd6"></span>
         </div>
         <div>
@@ -175,8 +175,8 @@
         <div id="demo6"></div>
     </div>
 
-    <script type="text/javascript" src="../dist/jquery-1.11.1.min.js"></script>
-    <script type="text/javascript" src="../dist/jquery.datetimepicker.min.js"></script>
+    <script type="text/javascript" src="../lib/jquery-1.11.1.js"></script>
+    <script type="text/javascript" src="../src/jquery.datetimepicker.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
             function logEvent(type, date) {
@@ -194,7 +194,7 @@
                     logEvent('onDateChange', this.getValue());
 
                     $('#date-text1-1').text(this.getText());
-                    $('#date-text-ymd1-1').text(this.getText('yyyy-MM-dd'));
+                    $('#date-text-ymd1-1').text(this.getText('YYYY-MM-DD'));
                     $('#date-value1-1').text(this.getValue());
                 },
                 //clear button click event
@@ -208,18 +208,14 @@
                 //close button click event
                 onClose: function() {
                     logEvent('onClose', this.getValue());
-                },
-                //today button click event
-                onToday: function() {
-                    logEvent('onToday', this.getValue());
-                },
+                }
             });
             $('#demo1-2').datetimepicker({
                 date: new Date(),
                 viewMode: 'YMDHM',
                 onDateChange: function(){
                     $('#date-text1-2').text(this.getText());
-                    $('#date-text-ymd1-2').text(this.getText('yyyy-MM-dd'));
+                    $('#date-text-ymd1-2').text(this.getText('YYYY-MM-DD'));
                     $('#date-value1-2').text(this.getValue());
                 }
             });
@@ -228,7 +224,7 @@
                 viewMode: 'YMD',
                 onDateChange: function(){
                     $('#date-text2').text(this.getText());
-                    $('#date-text-ymd2').text(this.getText('yyyy-MM-dd'));
+                    $('#date-text-ymd2').text(this.getText('YYYY-MM-DD'));
                     $('#date-value2').text(this.getValue());
                 }
             });
@@ -237,7 +233,7 @@
                 viewMode: 'YM',
                 onDateChange: function(){
                     $('#date-text3').text(this.getText());
-                    $('#date-text-ymd3').text(this.getText('yyyy-MM-dd'));
+                    $('#date-text-ymd3').text(this.getText('YYYY-MM-DD'));
                     $('#date-value3').text(this.getValue());
                 }
             });
@@ -246,7 +242,7 @@
                 viewMode: 'HMS',
                 onDateChange: function(){
                     $('#date-text4-1').text(this.getText());
-                    $('#date-text-ymd4-1').text(this.getText('yyyy-MM-dd'));
+                    $('#date-text-ymd4-1').text(this.getText('YYYY-MM-DD'));
                     $('#date-value4-1').text(this.getValue());
                 }
             });
@@ -255,7 +251,7 @@
                 viewMode: 'HM',
                 onDateChange: function(){
                     $('#date-text4-2').text(this.getText());
-                    $('#date-text-ymd4-2').text(this.getText('yyyy-MM-dd'));
+                    $('#date-text-ymd4-2').text(this.getText('YYYY-MM-DD'));
                     $('#date-value4-2').text(this.getValue());
                 }
             });
@@ -266,7 +262,7 @@
                 viewMode: 'YMDHMS',
                 onDateChange: function(){
                     $('#date-text5').text(this.getText());
-                    $('#date-text-ymd5').text(this.getText('yyyy-MM-dd'));
+                    $('#date-text-ymd5').text(this.getText('YYYY-MM-DD'));
                     $('#date-value5').text(this.getValue());
                 }
             });
@@ -276,7 +272,7 @@
                 viewMode: 'YMDHMS',
                 onDateChange: function(){
                     $('#date-text6').text(this.getText());
-                    $('#date-text-ymd6').text(this.getText('yyyy-MM-dd'));
+                    $('#date-text-ymd6').text(this.getText('YYYY-MM-DD'));
                     $('#date-value6').text(this.getValue());
                 }
             });

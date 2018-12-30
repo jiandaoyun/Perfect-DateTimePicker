@@ -15,22 +15,16 @@
      * @param options
      * @returns {{}}
      */
-    function DateTimePicker(element, options){
+    function DateTimePicker(element, options) {
         var picker = {},
             CONSTS = $.fn.datetimepicker.CONSTS,
             NAV = CONSTS.NAV,
-            I18N = (CONSTS.I18N[options.language])? CONSTS.I18N[options.language] : CONSTS.I18N['en'],
+            I18N = (CONSTS.I18N[options.language]) ? CONSTS.I18N[options.language] : CONSTS.I18N['en'],
             cache = {
                 showYear: null,
                 showMonth: null
             },
-            cloneDate = function (date) {
-                return new Date(date.getTime());
-            },
-            // The date which is used to generate the picker ui
-            displayDate = (options.date instanceof Date) ? cloneDate(options.date) : new Date(),
-            // The date/time which has been selected by the user
-            selectedDate = (options.date instanceof Date) ? cloneDate(options.date) : null,
+            currentDate = (options.date instanceof Date) ? new Date(options.date.getTime()) : null,
             firstDayOfWeek = options.firstDayOfWeek,
             $el = $(element),
             $datetable, //D(date) panel
@@ -43,24 +37,24 @@
              * @param month {Number} month
              * @private
              */
-            utilsGetMonthDays = function(date, month){
+            utilsGetMonthDays = function (date, month) {
                 var MD = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
                 var year = date.getFullYear();
                 if (month == null) {
                     month = date.getMonth();
                 }
-                if (((0 === (year % 4)) && ( (0 !== (year % 100)) || (0 === (year % 400)))) && month === 1) {
+                if (((0 === (year % 4)) && ((0 !== (year % 100)) || (0 === (year % 400)))) && month === 1) {
                     return 29;
                 } else {
                     return MD[month];
                 }
             },
 
-            utilsIsEmpty = function(value){
+            utilsIsEmpty = function (value) {
                 return value === "" || value == null;
             },
 
-            utilsApplyFunc = function(obj, func, param, defaultValue){
+            utilsApplyFunc = function (obj, func, param, defaultValue) {
                 if ($.isFunction(func)) {
                     return func.apply(obj, param ? param : []);
                 }
@@ -94,59 +88,59 @@
              */
             _compileDateFormat = function (format, date) {
                 var str = format.str, len = format.len, ch = format['char'];
-                switch(ch){
+                switch (ch) {
                     case 'Y': //年
-                        if(len <= 3){
-                            str = (date.getFullYear()+'').slice(2,4);
-                        }else{
+                        if (len <= 3) {
+                            str = (date.getFullYear() + '').slice(2, 4);
+                        } else {
                             str = date.getFullYear();
                         }
                         break;
                     case 'M': //月
-                        if(len > 2){
+                        if (len > 2) {
                             str = CONSTS.MN[date.getMonth()];
-                        }else if(len < 2){
+                        } else if (len < 2) {
                             str = date.getMonth() + 1;
-                        }else{
-                            str = utilsLeftPad(date.getMonth() + 1, 2,'0');
+                        } else {
+                            str = utilsLeftPad(date.getMonth() + 1, 2, '0');
                         }
                         break;
                     case 'D': //日
-                        if(len > 1){
-                            str = utilsLeftPad(date.getDate(), 2,'0');
-                        }else{
+                        if (len > 1) {
+                            str = utilsLeftPad(date.getDate(), 2, '0');
+                        } else {
                             str = date.getDate();
                         }
                         break;
                     case 'h': //时(12)
-                        var hour = date.getHours()%12;
-                        if(hour === 0){
+                        var hour = date.getHours() % 12;
+                        if (hour === 0) {
                             hour = 12;
                         }
-                        if(len > 1){
-                            str = utilsLeftPad(hour, 2,'0');
-                        }else{
+                        if (len > 1) {
+                            str = utilsLeftPad(hour, 2, '0');
+                        } else {
                             str = hour;
                         }
                         break;
                     case 'H': //时(24)
-                        if(len > 1){
-                            str = utilsLeftPad(date.getHours(), 2,'0');
-                        }else{
+                        if (len > 1) {
+                            str = utilsLeftPad(date.getHours(), 2, '0');
+                        } else {
                             str = date.getHours();
                         }
                         break;
                     case 'm':
-                        if(len > 1){
-                            str = utilsLeftPad(date.getMinutes(), 2,'0');
-                        }else{
+                        if (len > 1) {
+                            str = utilsLeftPad(date.getMinutes(), 2, '0');
+                        } else {
                             str = date.getMinutes();
                         }
                         break;
                     case 's':
-                        if(len > 1){
-                            str = utilsLeftPad(date.getSeconds(), 2,'0');
-                        }else{
+                        if (len > 1) {
+                            str = utilsLeftPad(date.getSeconds(), 2, '0');
+                        } else {
                             str = date.getSeconds();
                         }
                         break;
@@ -159,13 +153,13 @@
 
             /**
              * 日期对象按照指定格式转化成字符串
-             * e.g. Thu Dec 12 2013 00:00:00 GMT+0800 + 'YYYY-MM-DD' --> '2013-12-12'
+             * e.g. Thu Dec 12 2013 00:00:00 GMT+0800 + 'yyyy-MM-dd' --> '2013-12-12'
              * @param {Date} date 日期对象
              * @param {String} format 日期格式
              * @return {String} 返回日期字符串
              */
-            utilsDate2str = function(date, format){
-                if(!date){
+            utilsDate2str = function (date, format) {
+                if (!date) {
                     return '';
                 }
                 var len = format.length, result = '';
@@ -182,8 +176,8 @@
                             flagch = ch;
                             start = i;
                             str = flagch;
-                        }else{
-                            str +=ch;
+                        } else {
+                            str += ch;
                         }
                     }
                     result += _compileDateFormat({
@@ -219,19 +213,20 @@
 
             /**
              * create D panel
+             * @param options
              * @returns {jQuery}
              * @private
              */
-            _createDatePicker = function(){
+            _createDatePicker = function () {
                 var $table = $('<table cellspacing = "2px" cellpadding = "0" class="dt"/>');
                 var $thead = $('<thead/>').appendTo($table);
                 //head
                 //head - tools
-                $row = $('<tr class = "mainhead"/>');
+                var $row = $('<tr class = "mainhead"/>');
                 //head - tools - next month
                 $table.$prevm = _createCell($row, '<i class="icon-datepicker-prev"/>', 1, NAV['prevm'], "prevm");
                 //head - tools - title
-                $table.$title = $('<td class="title" colspan="5"/>').data('nav',NAV['title']).appendTo($row);
+                $table.$title = $('<td class="title" colspan="5"/>').data('nav', NAV['title']).appendTo($row);
                 //head - tools - prev month
                 $table.$nextm = _createCell($row, '<i class="icon-datepicker-next"/>', 1, NAV['nextm'], "nextm");
                 $row.appendTo($thead);
@@ -240,7 +235,7 @@
                 var i;
                 for (i = 0; i < 7; ++i) {
                     var $fdcell = $('<td/>').appendTo($row);
-                    var dd = ( i + firstDayOfWeek ) % 7;
+                    var dd = (i + firstDayOfWeek) % 7;
                     $fdcell.addClass('day name').text(I18N.SDN[dd]);
                     if (dd === 0 || dd === 6) { //Saturday, Sunday
                         $fdcell.addClass("weekend");
@@ -311,14 +306,14 @@
              * @private
              */
             _toPrevMonth = function () {
-                var sd = options.startDate;
+                var sd = options.startDate, date = currentDate;
                 var month = cache.showMonth,
                     year = cache.showYear;
                 if (!sd) {
                     if (month > 0) {
                         _setMonth(month - 1);
                     } else {
-                        displayDate.setFullYear(year - 1);
+                        date.setFullYear(year - 1);
                         _setMonth(11);
                     }
                     return;
@@ -327,14 +322,14 @@
                     if (month > 0) {
                         _setMonth(month - 1);
                     } else {
-                        displayDate.setFullYear(year - 1);
+                        date.setFullYear(year - 1);
                         _setMonth(11);
                     }
                 } else if (year == sd.getFullYear()) {
                     if (month > sd.getMonth() && month > 0) {
                         _setMonth(month - 1);
-                        if (displayDate < sd) {
-                            displayDate = cloneDate(sd);
+                        if (date < sd) {
+                            currentDate = new Date(sd);
                         }
                     }
                 }
@@ -345,14 +340,14 @@
              * @private
              */
             _toNextMonth = function () {
-                var edd = options.endDate;
+                var edd = options.endDate, date = currentDate;
                 var month = cache.showMonth,
                     year = cache.showYear;
                 if (!edd) {
                     if (month < 11) {
                         _setMonth(month + 1);
                     } else {
-                        displayDate.setFullYear(year + 1);
+                        date.setFullYear(year + 1);
                         _setMonth(0);
                     }
                     return;
@@ -361,14 +356,14 @@
                     if (month < 11) {
                         _setMonth(month + 1);
                     } else {
-                        displayDate.setFullYear(year + 1);
+                        date.setFullYear(year + 1);
                         _setMonth(0);
                     }
                 } else if (year == edd.getFullYear()) {
                     if (month < edd.getMonth()) {
                         _setMonth(month + 1);
-                        if (displayDate > edd) {
-                            displayDate = cloneDate(edd);
+                        if (date > edd) {
+                            currentDate = new Date(edd);
                         }
                     }
                 }
@@ -379,8 +374,8 @@
              * @private
              */
             _toPrevDecade = function () {
-                var sd = options.startDate;
-                var year = displayDate.getFullYear() - 10, month = displayDate.getMonth();
+                var sd = options.startDate, date = currentDate;
+                var year = date.getFullYear() - 10, month = date.getMonth();
                 var minMonth, minYear;
                 if (sd && year == (minYear = sd.getFullYear())) {
                     minMonth = sd.getMonth();
@@ -389,12 +384,12 @@
                     minYear = CONSTS.MINYEAR;
                 }
                 if (year < minYear) {
-                    displayDate.setFullYear(minYear);
+                    date.setFullYear(minYear);
                     if (month < minMonth) {
-                        displayDate.setMonth(minMonth);
+                        date.setMonth(minMonth);
                     }
                 } else {
-                    displayDate.setFullYear(year);
+                    date.setFullYear(year);
                 }
             },
 
@@ -403,8 +398,8 @@
              * @private
              */
             _toNextDecade = function () {
-                var edd = options.endDate;
-                var year = displayDate.getFullYear() + 10, month = displayDate.getMonth();
+                var edd = options.endDate, date = currentDate;
+                var year = date.getFullYear() + 10, month = date.getMonth();
                 var maxMonth, maxYear;
                 if (edd && year == (maxYear = edd.getFullYear())) {
                     maxMonth = edd.getMonth();
@@ -413,29 +408,30 @@
                     maxYear = CONSTS.MAXYEAR;
                 }
                 if (year > maxYear) {
-                    displayDate.setFullYear(maxYear);
+                    date.setFullYear(maxYear);
                     if (month < maxMonth) {
-                        displayDate.setMonth(maxMonth);
+                        date.setMonth(maxMonth);
                     }
                 } else {
-                    displayDate.setFullYear(year);
+                    date.setFullYear(year);
                 }
             },
 
             _setMonth = function (m) {
-                var day = displayDate.getDate(),
+                var date = currentDate;
+                var day = date.getDate(),
                     edd = options.endDate,
                     std = options.startDate;
-                var max = utilsGetMonthDays(displayDate, m);
+                var max = utilsGetMonthDays(date, m);
                 if (day > max) {
-                    displayDate.setDate(max);
+                    date.setDate(max);
                 }
-                displayDate.setMonth(m);
-                if (edd && displayDate > edd) {
-                    displayDate.setDate(edd.getDate());
+                date.setMonth(m);
+                if (edd && date > edd) {
+                    date.setDate(edd.getDate());
                 }
-                if (std && displayDate < std) {
-                    displayDate.setDate(std.getDate());
+                if (std && date < std) {
+                    date.setDate(std.getDate());
                 }
             },
 
@@ -446,11 +442,9 @@
              * @private
              */
             _loadDateData = function (table, date) {
-                if (!(date instanceof Date)) {
+                if (!date) {
                     return;
                 }
-                // clone the date to not change the date argument variable
-                date = cloneDate(date);
                 var year = date.getFullYear(),
                     month = date.getMonth(),
                     day = date.getDate();
@@ -465,14 +459,14 @@
                 //set title
                 table.$title.text(I18N.MN[month] + ", " + year);
                 //set button
-                var nextDay = cloneDate(date);
+                var nextDay = new Date(date);
                 nextDay.setDate(utilsGetMonthDays(nextDay, null) + 1);
                 if ((edd && nextDay > edd) || nextDay.getFullYear() > CONSTS.MAXYEAR) {
                     table.$nextm.addClass('disabled').removeClass('hover').data('disabled', true);
                 } else {
                     table.$nextm.removeClass('disabled').data('disabled', false);
                 }
-                var prevDay = cloneDate(date);
+                var prevDay = new Date(date);
                 prevDay.setDate(0);
                 if ((std && prevDay < std) || prevDay.getFullYear() < CONSTS.MINYEAR) {
                     table.$prevm.addClass('disabled').removeClass('hover').data('disabled', true);
@@ -501,12 +495,12 @@
                         iday = date.getDate();
                         $cell.text(iday);
                         var current_month = (date.getMonth() == month);
-                        var disabled = false;
-
                         if (!current_month) {
-                            $cell.addClass('oday');
+                            $cell.addClass('oday').data('disabled', true);
+                            continue;
                         }
-                        else if ((std != null && std > date) || (edd != null && edd < date)) {
+                        var disabled = false;
+                        if ((std != null && std > date) || (edd != null && edd < date)) {
                             //out of date range
                             $cell.addClass('day disabled');
                             disabled = true;
@@ -515,8 +509,8 @@
                             $cell.addClass('day');
                         }
                         $cell.data('disabled', disabled);
-                        if (!disabled && selectedDate) {
-                            if (selectedDate.getMonth() == month && iday == day) {
+                        if (!disabled) {
+                            if (current_month && iday == day) {
                                 cache.selectedDate && cache.selectedDate.removeClass('selected');
                                 $cell.addClass('selected');
                                 cache.selectedDate = $cell;
@@ -528,7 +522,7 @@
                                 $cell.addClass('today');
                             }
                             var wday = date.getDay();
-                            if (wday === 0 || wday ===6) {
+                            if (wday === 0 || wday === 6) {
                                 $cell.addClass("weekend");
                             }
                         }
@@ -632,21 +626,21 @@
              * @param {String} viewmode The datetimepicker's view mode.
              */
             _loadTimeData = function (table, date, viewmode) {
-                if (!(date instanceof Date)) {
-                    table.$h.val('');
-                    table.$m.val('');
-                    table.$s.val('');
+                if (!date) {
+                    table.$h.val('00');
+                    table.$m.val('00');
+                    table.$s.val('00');
                     return;
                 }
 
                 // Reset seconds if they are not relevant.
                 if (viewmode == CONSTS.VIEWMODE.HM || viewmode == CONSTS.VIEWMODE.YMDHM) {
-                  date.setSeconds(0);
+                    date.setSeconds(0);
                 }
 
-                var hour = date.getHours()+'',
-                    minute = date.getMinutes()+'',
-                    second = date.getSeconds()+'';
+                var hour = date.getHours() + '',
+                    minute = date.getMinutes() + '',
+                    second = date.getSeconds() + '';
                 table.$h.val(utilsLeftPad(hour, 2, '0'));
                 table.$m.val(utilsLeftPad(minute, 2, '0'));
                 table.$s.val(utilsLeftPad(second, 2, '0'));
@@ -658,24 +652,23 @@
              * @param {Object} input time input
              * @private
              */
-            _doTimeInc = function(timetable, input){
+            _doTimeInc = function (timetable, input) {
                 var inputType = input.data('time');
                 if (inputType === 'h') {
-                    var hours = (displayDate.getHours() + 1) % 24;
-                    displayDate.setHours(hours);
+                    var hours = (currentDate.getHours() + 1) % 24;
+                    currentDate.setHours(hours);
                     timetable.$h.val(utilsLeftPad(hours, 2, '0'));
                 } else if (inputType === 'm') {
-                    var minutes = (displayDate.getMinutes() + 5) % 60;
-                    displayDate.setMinutes(minutes);
+                    var minutes = (currentDate.getMinutes() + 5) % 60;
+                    currentDate.setMinutes(minutes);
                     timetable.$m.val(utilsLeftPad(minutes, 2, '0'));
                 } else {
-                    var seconds = (displayDate.getSeconds() + 5) % 60;
-                    displayDate.setSeconds(seconds);
+                    var seconds = (currentDate.getSeconds() + 5) % 60;
+                    currentDate.setSeconds(seconds);
                     timetable.$s.val(utilsLeftPad(seconds, 2, '0'));
                 }
                 input.select();
-                _setSelectedDate(displayDate);
-                _loadTimeData($timetable, displayDate);
+                utilsApplyFunc(picker, options.onDateChange, arguments, false);
             },
             /**
              * do time decrease
@@ -683,31 +676,30 @@
              * @param {Object} input time input
              * @private
              */
-            _doTimeDec = function(timetable, input){
+            _doTimeDec = function (timetable, input) {
                 var inputType = input.data('time');
                 if (inputType === 'h') {
-                    var hours = (displayDate.getHours() + 23) % 24;
-                    displayDate.setHours(hours);
+                    var hours = (currentDate.getHours() + 23) % 24;
+                    currentDate.setHours(hours);
                     timetable.$h.val(utilsLeftPad(hours, 2, '0'));
                 } else if (inputType === 'm') {
-                    var minutes = (displayDate.getMinutes() + 55) % 60;
-                    displayDate.setMinutes(minutes);
+                    var minutes = (currentDate.getMinutes() + 55) % 60;
+                    currentDate.setMinutes(minutes);
                     timetable.$m.val(utilsLeftPad(minutes, 2, '0'));
                 } else {
-                    var seconds = (displayDate.getSeconds() + 55) % 60;
-                    displayDate.setSeconds(seconds);
+                    var seconds = (currentDate.getSeconds() + 55) % 60;
+                    currentDate.setSeconds(seconds);
                     timetable.$s.val(utilsLeftPad(seconds, 2, '0'));
                 }
                 input.select();
-                _setSelectedDate(displayDate);
-                _loadTimeData($timetable, displayDate);
+                utilsApplyFunc(picker, options.onDateChange, arguments, false);
             },
 
             /**
              * Make sure a number is between a minimum and a maximum
              */
-            clampNumber = function(value, min, max) {
-              return isNaN(value) ? min : Math.min(max, Math.max(min, value));
+            clampNumber = function (value, min, max) {
+                return isNaN(value) ? min : Math.min(max, Math.max(min, value));
             },
 
             /**
@@ -724,10 +716,8 @@
                     if (value != hours) {
                         this.value = hours;
                     }
-                    displayDate.setHours(hours);
-                    _setSelectedDate(displayDate);
-                    // populate other time fields if no date has been selected before
-                    _loadTimeData($timetable, displayDate);
+                    currentDate.setHours(hours);
+                    utilsApplyFunc(picker, options.onDateChange, arguments);
                 }).focus(function () {
                     $table.focus = $(this);
                 });
@@ -738,10 +728,8 @@
                     if (value != minutes) {
                         this.value = minutes;
                     }
-                    displayDate.setMinutes(minutes);
-                    _setSelectedDate(displayDate);
-                    // populate other time fields if no date has been selected before
-                    _loadTimeData($timetable, displayDate);
+                    currentDate.setMinutes(minutes);
+                    utilsApplyFunc(picker, options.onDateChange, arguments);
                 }).focus(function () {
                     $table.focus = $(this);
                 });
@@ -752,10 +740,8 @@
                     if (value != seconds) {
                         this.value = seconds;
                     }
-                    displayDate.setSeconds(seconds);
-                    _setSelectedDate(displayDate);
-                    // populate other time fields if no date has been selected before
-                    _loadTimeData($timetable, displayDate);
+                    currentDate.setSeconds(seconds);
+                    utilsApplyFunc(picker, options.onDateChange, arguments);
                 }).focus(function () {
                     $table.focus = $(this);
                 });
@@ -769,8 +755,8 @@
 
                 // Only add the seconds input if it's requested
                 if (viewmode != CONSTS.VIEWMODE.YMDHM && viewmode != CONSTS.VIEWMODE.HM) {
-                  $row.append($('<td class="common" rowspan="2"/>').text(':'))
-                      .append($('<td rowspan="2"/>').append($table.$s));
+                    $row.append($('<td class="common" rowspan="2"/>').text(':'))
+                        .append($('<td rowspan="2"/>').append($table.$s));
                 }
 
                 $row.append($add).appendTo($tbody);
@@ -783,7 +769,7 @@
              * @param timetable T panel DOM
              * @private
              */
-            _addTimeOptPane = function($wrapper){
+            _addTimeOptPane = function ($wrapper) {
                 var $table = $('<table/>');
                 var $tr = $('<tr/>').appendTo($table);
                 //清空按钮
@@ -794,17 +780,6 @@
                 _createCell($tr, I18N["OK"], 1, NAV['dok'], 'ok');
                 $table.appendTo($wrapper);
             },
-
-            /**
-             * Set the internal selected date and trigger the change event
-             * @param {Date} date
-             * @private
-             */
-            _setSelectedDate = function(date) {
-                 selectedDate = (date instanceof Date) ? cloneDate(date) : null;
-                 utilsApplyFunc(picker, options.onDateChange);
-            },
-
             /**
              * bind events
              * @private
@@ -819,8 +794,8 @@
                     if ($target.data('disabled') || $target.length === 0 || !navitype) {
                         return;
                     }
-                    if(!(displayDate instanceof Date)){
-                        displayDate = new Date();
+                    if (!currentDate) {
+                        currentDate = currentDate || new Date();
                     }
                     if (type === 'mouseover') {
                         $target.addClass('hover');
@@ -830,12 +805,14 @@
                             case NAV['prevm']:
                                 //previous month
                                 _toPrevMonth();
-                                _loadDateData($datetable, displayDate);
+                                _loadDateData($datetable, new Date(currentDate));
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 break;
                             case NAV['nextm']:
                                 //next month
                                 _toNextMonth();
-                                _loadDateData($datetable, displayDate);
+                                _loadDateData($datetable, new Date(currentDate));
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 break;
                             case NAV['title']:
                                 //click 'title' button to open YM panel
@@ -852,31 +829,29 @@
                                 break;
                             case NAV['clear']:
                                 //清空按钮
-                                displayDate = null;
+                                currentDate = null;
                                 cache.selectedDate && cache.selectedDate.removeClass('selected');
-                                _setSelectedDate(displayDate);
-                                _loadTimeData($timetable, null);
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 utilsApplyFunc(picker, options.onClear, _arguments);
                                 break;
                             case NAV['current']:
                                 //click 'current' button
-                                displayDate = new Date();
-                                selectedDate = displayDate;
-                                _setSelectedDate(displayDate);
+                                currentDate = new Date();
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                             case NAV['today']:
                                 //click 'today' button
                                 var today = new Date();
-                                if((options.startDate && today<options.startDate) ||
-                                    (options.endDate && today>options.endDate)){
+                                if ((options.startDate && today < options.startDate) ||
+                                    (options.endDate && today > options.endDate)) {
                                     return;
-                                }else{
-                                    displayDate = today;
-                                    _loadDateData($datetable, displayDate);
-                                    _loadTimeData($timetable, displayDate);
+                                } else {
+                                    currentDate = new Date(today);
+                                    _loadDateData($datetable, today);
+                                    _loadTimeData($timetable, today);
                                     cache.selectedDate && cache.selectedDate.removeClass('selected');
                                     cache.selectedDate = $datetable.find('td.today').addClass('selected');
                                 }
-                                _setSelectedDate(displayDate);
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 break;
                             case NAV['dok']:
                                 //click 'ok' button on D panel
@@ -885,70 +860,52 @@
                             case NAV['prevy']:
                                 //previous ten years
                                 _toPrevDecade();
-                                _loadMonthData($monthtable, displayDate);
+                                _loadMonthData($monthtable, new Date(currentDate));
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 break;
                             case NAV['nexty']:
                                 //next ten years
                                 _toNextDecade();
-                                _loadMonthData($monthtable, displayDate);
+                                _loadMonthData($monthtable, new Date(currentDate));
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 break;
                             case NAV['mok']:
                                 //click 'ok' button on YM panel
-                                _loadDateData($datetable, displayDate);
-                                if($datetable.parent().length > 0){
+                                _loadDateData($datetable, new Date(currentDate));
+                                if ($datetable.parent().length > 0) {
                                     $monthtable.hide("fast");
                                 }
                                 break;
                             case NAV['cancel']:
                                 //click 'cancel' button
-                                _loadDateData($datetable, displayDate);
+                                _loadDateData($datetable, new Date(currentDate));
                                 $monthtable.hide("fast");
                                 break;
                             case NAV['year']:
                                 //choose one year
                                 cache.selectedYear && cache.selectedYear.removeClass('selected');
                                 cache.selectedYear = $target;
-                                displayDate.setFullYear($target.text());
-                                _setSelectedDate(displayDate);
-                                _loadMonthData($monthtable, displayDate);
+                                var date = currentDate;
+                                date.setFullYear($target.text());
+                                _loadMonthData($monthtable, new Date(date));
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 break;
                             case NAV['month']:
                                 //choose one month
                                 cache.selectedMonth && cache.selectedMonth.removeClass('selected');
                                 cache.selectedMonth = $target.addClass('selected');
-                                displayDate.setMonth($target.data('month'));
-                                _setSelectedDate(displayDate);
+                                currentDate.setMonth($target.data('month'));
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 break;
                             case NAV['day']:
-                                var day = parseInt($target.text(), 10);
-                                if ($target.hasClass('oday')) {
-                                    if (day < 15) {
-                                        // switch to next month
-                                        _toNextMonth();
-                                        displayDate.setDate(day);
-                                        _loadDateData($datetable, displayDate);
-                                    }
-                                    else {
-                                        // switch to previous month
-                                        _toPrevMonth();
-                                        displayDate.setDate(day);
-                                        _loadDateData($datetable, displayDate);
-                                    }
-                                    // determine new "target" cell
-                                    $target = $target.closest('table').find('td.day').filter(function() {
-                                        return ($(this).text() == day);
-                                    });
-                                }
                                 //choose one day
                                 cache.selectedDate && cache.selectedDate.removeClass('selected');
                                 cache.selectedDate = $target.addClass('selected');
-                                displayDate.setFullYear(cache.showYear);
-                                displayDate.setMonth(cache.showMonth);
-                                displayDate.setDate(day);
-                                _setSelectedDate(displayDate);
-                                if(!$timetable.parent().length){
-                                    utilsApplyFunc(picker, options.onClose, _arguments);
-                                }
+                                var curDate = currentDate;
+                                curDate.setFullYear(cache.showYear);
+                                curDate.setMonth(cache.showMonth);
+                                curDate.setDate($target.text());
+                                utilsApplyFunc(picker, options.onDateChange, _arguments);
                                 break;
                             case NAV['plus']:
                                 //plus time
@@ -977,7 +934,7 @@
         // wrap widget in a form element to be able to turn off html5 form validation
         var $wrapper = $('<form novalidate/>').appendTo($el).addClass(options.baseCls);
         $datetable = _createDatePicker();
-        _loadDateData($datetable, displayDate);
+        _loadDateData($datetable, new Date(currentDate));
         $monthtable = _createMonthPicker();
         $timetable = _createTimePicker(options.viewMode);
         var $buttonpane = _createButtonPane();
@@ -985,12 +942,12 @@
 
         switch (options.viewMode) {
             case VIEWMODE.YM : // yyyyMM
-                _loadMonthData($monthtable, displayDate);
+                _loadMonthData($monthtable, new Date(currentDate));
                 $wrapper.append($monthtable.show());
                 break;
             case VIEWMODE.HM : // HHmm
             case VIEWMODE.HMS : // HHmmss
-                _loadTimeData($timetable, displayDate, options.viewMode);
+                _loadTimeData($timetable, currentDate, options.viewMode);
                 $wrapper.append($timetable.show());
                 _addTimeOptPane($wrapper);
                 break;
@@ -1005,7 +962,7 @@
             default : // yyyyMMddHHmm(ss)
                 $datetable.appendTo($wrapper).show();
                 $monthtable.hide().appendTo($wrapper);
-                _loadTimeData($timetable, displayDate, options.viewMode);
+                _loadTimeData($timetable, currentDate, options.viewMode);
                 $timetable.show().appendTo($wrapper);
                 $wrapper.append($buttonpane);
                 break;
@@ -1016,34 +973,27 @@
         picker.$datetable = $datetable;
         picker.$monthtable = $monthtable;
         picker.$timetable = $timetable;
-        picker.getValue = function(){
+        picker.getValue = function () {
             var viewMode = CONSTS.VIEWMODE;
-            var date = selectedDate;
-            if(date && (options.viewMode === viewMode.YMD || options.viewMode === viewMode.YM)){
+            var date = currentDate;
+            if (date && (options.viewMode === viewMode.YMD || options.viewMode === viewMode.YM)) {
                 //如果不包含时间，则把时间计为00:00:00
                 date.setHours(0, 0, 0, 0);
             }
             return date;
         };
 
-        picker.getDisplayDate = function() {
-            return displayDate;
-        };
-
         /** API **/
         picker.setValue = function (value) {
             if (value instanceof Date) {
-                displayDate = value;
-                _setSelectedDate(value);
+                currentDate = value;
                 _loadDateData($datetable, value);
                 _loadMonthData($monthtable, value);
                 _loadTimeData($timetable, value, options.viewMode);
-            } else {
-              throw 'datetimepicker.setValue(): Argument is not a Date object';
             }
         };
         picker.getText = function (format) {
-            return utilsDate2str(this.getValue(), format?format:'YYYY/MM/DD HH:mm:ss');
+            return utilsDate2str(this.getValue(), format ? format : 'YYYY/MM/DD HH:mm:ss');
         };
         picker.destroy = function () {
             this.element.removeData('datetimepicker');
@@ -1068,7 +1018,7 @@
         });
     };
 
-    $.fn.datetimepicker.init = function(el, options){
+    $.fn.datetimepicker.init = function (el, options) {
         var o = $.extend(true, {}, $.fn.datetimepicker.defaults, options);
         var dtp = new DateTimePicker(el, o);
         $(el).data('dateTimePicker', dtp);
@@ -1171,7 +1121,7 @@
         endDate: null, //end date
         startDate: null, //start date
         language: 'en', //I18N
-        //date selection event
+        //date update event
         onDateChange: null,
         //clear button click event
         onClear: null,
