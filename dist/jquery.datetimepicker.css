@@ -74,8 +74,7 @@
 .perfect-datetimepicker table.tt {
   padding: 5px;
 }
-.perfect-datetimepicker table.tt td.hover,
-.perfect-datetimepicker table.tt td.hover:hover {
+.perfect-datetimepicker table.tt td.hover {
   border: 0;
 }
 .perfect-datetimepicker table.tt td.common {
@@ -126,8 +125,7 @@
 .perfect-datetimepicker .buttonpane {
   border-top: 1px solid #CCCCCC;
 }
-.perfect-datetimepicker tbody td.hover,
-.perfect-datetimepicker tbody td.hover:hover {
+.perfect-datetimepicker tbody td.hover {
   background-color: #eee;
   padding: 1px;
   border: 1px solid #CCCCCC;
@@ -143,14 +141,12 @@
   border: 1px solid #178cdf;
   background-color: #178cdf;
 }
-.perfect-datetimepicker tfoot td.hover,
-.perfect-datetimepicker tfoot td.hover:hover {
+.perfect-datetimepicker tfoot td.hover {
   background-color: #eee;
   padding: 1px;
   border: 1px solid #eee;
 }
-.perfect-datetimepicker thead td.hover,
-.perfect-datetimepicker thead td.hover:hover {
+.perfect-datetimepicker thead td.hover {
   background-color: #eee;
   padding: 1px;
   border: 1px solid #eee;
