@@ -863,7 +863,6 @@
                                 displayDate = new Date();
                                 selectedDate = displayDate;
                                 _setSelectedDate(displayDate);
-                                utilsApplyFunc(picker, options.onClear, _arguments);
                             case NAV['today']:
                                 //click 'today' button
                                 var today = new Date();
@@ -878,7 +877,6 @@
                                     cache.selectedDate = $datetable.find('td.today').addClass('selected');
                                 }
                                 _setSelectedDate(displayDate);
-                                utilsApplyFunc(picker, options.onToday, _arguments);
                                 break;
                             case NAV['dok']:
                                 //click 'ok' button on D panel
@@ -1180,8 +1178,6 @@
         //ok button click event
         onOk: null,
         //close button click event
-        onClose: null,
-        //today button click event
-        onToday: null
+        onClose: null
     };
 }));

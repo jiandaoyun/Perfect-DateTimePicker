@@ -36,7 +36,6 @@
 <tr><td>onClear</td><td>Function</td><td>clear button click event(清除按钮事件)</td></tr>
 <tr><td>onOk</td><td>Function</td><td>ok button click event(确认按钮事件)</td></tr>
 <tr><td>onClose</td><td>Function</td><td>close button click event(关闭按钮事件)</td></tr>
-<tr><td>onToday</td><td>Function</td><td>today button click event(选取今天按钮事件)</td></tr>
 </table>
 
 * APIs(调用接口)
