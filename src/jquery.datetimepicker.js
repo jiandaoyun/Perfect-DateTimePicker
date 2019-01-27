@@ -1074,6 +1074,17 @@
                 OK: "OK",
                 CURRENT: "Nu",
                 TIME: "Tijd"
+            },
+            en: {
+                SDN: ["N", "Pn", "Wt", "Śr", "Cz", "Pt", "So"],
+                MN: ["Sty", "Lut", "Mar", "Kwi", "Maj", "Cze", "Lip", "Sie", "Wrz", "Paź", "Lis", "Gru"],
+                DN: ["Niedziela", "Poniedziałek", "Wtorek", "Środa", "Czwartek", "Piątek", "Sobota"],
+                CALENDAR: "Kalendarz",
+                CLEAR: "Wyczyść",
+                TODAY: "Dziś",
+                OK: "OK",
+                CURRENT: "Teraz",
+                TIME: "Godzina"
             }
         },
 
