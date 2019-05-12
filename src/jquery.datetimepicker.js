@@ -1009,20 +1009,13 @@
      * @returns {*}
      */
     $.fn.datetimepicker = function (options) {
-        return this.each(function () {
-            var $this = $(this);
-            if (!$this.data('dateTimePicker')) {
-                options = $.extend(true, {}, $.fn.datetimepicker.defaults, options);
-                $this.data('dateTimePicker', new DateTimePicker(this, options));
-            }
-        });
-    };
-
-    $.fn.datetimepicker.init = function (el, options) {
-        var o = $.extend(true, {}, $.fn.datetimepicker.defaults, options);
-        var dtp = new DateTimePicker(el, o);
-        $(el).data('dateTimePicker', dtp);
-        return dtp;
+        var $this = $(this);
+        if (!$this.data('dateTimePicker')) {
+            var o = $.extend(true, {}, $.fn.datetimepicker.defaults, options);
+            var dtp = new DateTimePicker(this, o);
+            $this.data('dateTimePicker', dtp);
+        }
+        return $this.data('dateTimePicker');
     };
 
     /**
