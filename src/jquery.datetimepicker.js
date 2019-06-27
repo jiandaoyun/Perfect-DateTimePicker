@@ -1131,7 +1131,7 @@
         date: null, //initial date
         endDate: null, //end date
         startDate: null, //start date
-        language: 'es', //I18N
+        language: 'en', //I18N
         //date update event
         onDateChange: null,
         //clear button click event
