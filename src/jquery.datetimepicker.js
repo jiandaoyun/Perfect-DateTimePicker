@@ -1046,6 +1046,17 @@
                 CURRENT: "Now",
                 TIME: "Time"
             },
+            es: {
+                SDN: ["Dom", "Lun", "Mar", "Mie", "Jue", "Vie", "Sab"],
+                MN: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+                DN: ["Domingo", "Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado"],
+                CALENDAR: "Calendario",
+                CLEAR: "Limpiar",
+                TODAY: "Hoy",
+                OK: "Ok",
+                CURRENT: "Ahora",
+                TIME: "Tiempo"
+            },
             de: {
                 SDN: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
                 MN: ["Jan", "Feb", "Mrz", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
