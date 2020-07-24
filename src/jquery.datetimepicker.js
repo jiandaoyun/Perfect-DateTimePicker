@@ -976,6 +976,7 @@
         picker.getValue = function () {
             var viewMode = CONSTS.VIEWMODE;
             var date = currentDate;
+            currentDate.setMilliseconds(0);
             if (date && (options.viewMode === viewMode.YMD || options.viewMode === viewMode.YM)) {
                 //如果不包含时间，则把时间计为00:00:00
                 date.setHours(0, 0, 0, 0);
